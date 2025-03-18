@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "API de Autenticación y Usuarios",
+    "title": "API de Tinder -KALEV",
     "description": "API para Tinder gamer",
     "version": "1.0.0"
   },
@@ -250,11 +250,7 @@
         }
       }
     },
-    "/auth/me": {  "security": [
-      {
-        "Bearer": []
-      }
-    ],
+    "/auth/me": { 
       "get": {
         "summary": "Obtener información del usuario actual",
         "description": "Obtiene la información del usuario autenticado",
