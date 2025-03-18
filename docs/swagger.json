@@ -394,9 +394,393 @@
           }
         }
       }
+    },
+    "/api/users/{id}/profile": {
+      "get": {
+        "tags": ["Profile"],
+        "summary": "Get user profile",
+        "description": "Retrieves the complete profile information of a specified user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          },
+          "403": {
+            "description": "Profile is private",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": ["Profile"],
+        "summary": "Update user profile",
+        "description": "Updates the profile information of the authenticated user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "User ID (must match authenticated user's ID)"
+          },
+          {
+            "name": "profile",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProfileUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile updated successfully",
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Cannot update another user's profile",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/{id}/games": {
+      "get": {
+        "tags": ["Games"],
+        "summary": "Get user's preferred games",
+        "description": "Retrieves the list of games preferred by a specified user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Games retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/UserGames"
+            }
+          },
+          "403": {
+            "description": "Profile is private",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/games": {
+      "post": {
+        "tags": ["Games"],
+        "summary": "Add a preferred game",
+        "description": "Adds a game to the authenticated user's preferred games list",
+        "parameters": [
+          {
+            "name": "game",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GameAdd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Game added successfully",
+            "schema": {
+              "$ref": "#/definitions/UserGames"
+            }
+          },
+          "400": {
+            "description": "Invalid input or game already in preferences",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/games/{gameId}": {
+      "delete": {
+        "tags": ["Games"],
+        "summary": "Remove a preferred game",
+        "description": "Removes a game from the authenticated user's preferred games list",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Game title or index in the array"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Game removed successfully",
+            "schema": {
+              "$ref": "#/definitions/UserGames"
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "User or game not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/{id}/play-times": {
+      "get": {
+        "tags": ["Play Times"],
+        "summary": "Get user's play time preferences",
+        "description": "Retrieves the play time preferences of a specified user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Play times retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/UserPlayTimes"
+            }
+          },
+          "403": {
+            "description": "Profile is private",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/play-times": {
+      "post": {
+        "tags": ["Play Times"],
+        "summary": "Add a play time preference",
+        "description": "Adds a play time preference to the authenticated user",
+        "parameters": [
+          {
+            "name": "playTime",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PlayTimeAdd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Play time added successfully",
+            "schema": {
+              "$ref": "#/definitions/UserPlayTimes"
+            }
+          },
+          "400": {
+            "description": "Invalid input or play time already added",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Play time preference not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/play-times/{timeId}": {
+      "delete": {
+        "tags": ["Play Times"],
+        "summary": "Remove a play time preference",
+        "description": "Removes a play time preference from the authenticated user",
+        "parameters": [
+          {
+            "name": "timeId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Play time preference ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Play time removed successfully",
+            "schema": {
+              "$ref": "#/definitions/UserPlayTimes"
+            }
+          },
+          "404": {
+            "description": "Play time not found for this user",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
     }
   },
-  "definition": {
+  "definitions": {
     "RegisterRequest": {
       "type": "object",
       "required": ["email", "password", "name"],
@@ -592,6 +976,141 @@
               "example": 500
             }
           }
+        }
+      }
+    },
+    "UserProfile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "User ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "User's display name"
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email (only visible to profile owner)"
+        },
+        "profile_picture": {
+          "type": "string",
+          "description": "URL to user's profile picture"
+        },
+        "bio": {
+          "type": "string",
+          "description": "User's biography"
+        },
+        "game_preferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of user's preferred games"
+        },
+        "play_times": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayTime"
+          },
+          "description": "User's preferred play times"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Account creation timestamp"
+        }
+      }
+    },
+    "ProfileUpdate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "User's display name"
+        },
+        "bio": {
+          "type": "string",
+          "description": "User's biography"
+        },
+        "profile_picture": {
+          "type": "string",
+          "description": "URL to user's profile picture"
+        }
+      }
+    },
+    "UserGames": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "description": "User ID"
+        },
+        "game_preferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of user's preferred games"
+        }
+      }
+    },
+    "GameAdd": {
+      "type": "object",
+      "properties": {
+        "game": {
+          "type": "string",
+          "description": "Game title to add to preferences"
+        }
+      },
+      "required": ["game"]
+    },
+    "UserPlayTimes": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "description": "User ID"
+        },
+        "play_times": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayTime"
+          },
+          "description": "User's preferred play times"
+        }
+      }
+    },
+    "PlayTime": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Play time preference ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Play time name (morning, afternoon, evening, etc.)"
+        }
+      }
+    },
+    "PlayTimeAdd": {
+      "type": "object",
+      "properties": {
+        "play_time_id": {
+          "type": "integer",
+          "description": "ID of the play time preference to add"
+        }
+      },
+      "required": ["play_time_id"]
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "description": "Error message"
         }
       }
     }
