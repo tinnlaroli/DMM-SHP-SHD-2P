@@ -1,0 +1,599 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Autenticación y Usuarios",
+    "description": "API para gestionar autenticación y perfiles de usuarios",
+    "version": "1.0.0"
+  },
+  "basePath": "/api",
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT token de autenticación. Ejemplo: Bearer {token}"
+    }
+  },
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Registro de nuevos usuarios",
+        "description": "Crea una nueva cuenta de usuario",
+        "tags": ["Autenticación"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Datos del usuario para registrar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Usuario registrado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "400": {
+            "description": "Datos de registro inválidos",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "El email ya está en uso",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Inicio de sesión",
+        "description": "Inicia sesión con email y contraseña",
+        "tags": ["Autenticación"],
+        "parameters": [
+          {
+            "name": "credentials",
+            "in": "body",
+            "description": "Credenciales de inicio de sesión",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión exitoso",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "401": {
+            "description": "Credenciales inválidas",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/social/google": {
+      "post": {
+        "summary": "Inicio de sesión con Google",
+        "description": "Inicia sesión o registra un usuario con token de Google",
+        "tags": ["Autenticación Social"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token de autenticación de Google",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SocialLoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión social exitoso",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "401": {
+            "description": "Token social inválido",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/social/google/start": {
+      "get": {
+        "summary": "Iniciar flujo de autenticación con Google",
+        "description": "Redirecciona al usuario a la página de inicio de sesión de Google",
+        "tags": ["Autenticación Social"],
+        "responses": {
+          "302": {
+            "description": "Redirección a la página de autenticación de Google"
+          }
+        }
+      }
+    },
+    "/auth/social/google/callback": {
+      "get": {
+        "summary": "Callback de autenticación de Google",
+        "description": "Endpoint de callback para procesar la respuesta de autenticación de Google",
+        "tags": ["Autenticación Social"],
+        "responses": {
+          "200": {
+            "description": "Autenticación exitosa",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "401": {
+            "description": "Falló la autenticación",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/social/facebook": {
+      "post": {
+        "summary": "Inicio de sesión con Facebook",
+        "description": "Inicia sesión o registra un usuario con token de Facebook",
+        "tags": ["Autenticación Social"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token de autenticación de Facebook",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SocialLoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión social exitoso",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "401": {
+            "description": "Token social inválido",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/social/facebook/start": {
+      "get": {
+        "summary": "Iniciar flujo de autenticación con Facebook",
+        "description": "Redirecciona al usuario a la página de inicio de sesión de Facebook",
+        "tags": ["Autenticación Social"],
+        "responses": {
+          "302": {
+            "description": "Redirección a la página de autenticación de Facebook"
+          }
+        }
+      }
+    },
+    "/auth/social/facebook/callback": {
+      "get": {
+        "summary": "Callback de autenticación de Facebook",
+        "description": "Endpoint de callback para procesar la respuesta de autenticación de Facebook",
+        "tags": ["Autenticación Social"],
+        "responses": {
+          "200": {
+            "description": "Autenticación exitosa",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "401": {
+            "description": "Falló la autenticación",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "summary": "Cierre de sesión",
+        "description": "Cierra la sesión del usuario actual",
+        "tags": ["Autenticación"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sesión cerrada exitosamente",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Sesión cerrada correctamente"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "summary": "Obtener información del usuario actual",
+        "description": "Obtiene la información del usuario autenticado",
+        "tags": ["Usuarios"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información del usuario obtenida exitosamente",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar información del usuario actual",
+        "description": "Actualiza la información del usuario autenticado",
+        "tags": ["Usuarios"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "userData",
+            "in": "body",
+            "description": "Datos del usuario a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información del usuario actualizada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Obtener perfil público de un usuario",
+        "description": "Obtiene el perfil público de un usuario por su ID",
+        "tags": ["Usuarios"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID del usuario",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil de usuario obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/PublicUserResponse"
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/settings": {
+      "put": {
+        "summary": "Actualizar configuraciones de usuario",
+        "description": "Actualiza las configuraciones del usuario actual",
+        "tags": ["Usuarios"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "settings",
+            "in": "body",
+            "description": "Configuraciones del usuario a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserSettingsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Configuraciones actualizadas exitosamente",
+            "schema": {
+              "$ref": "#/definitions/UserSettingsResponse"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definition": {
+    "RegisterRequest": {
+      "type": "object",
+      "required": ["email", "password", "name"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "usuario@ejemplo.com"
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "example": "contraseña123"
+        },
+        "name": {
+          "type": "string",
+          "example": "Juan Pérez"
+        }
+      }
+    },
+    "LoginRequest": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "usuario@ejemplo.com"
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "example": "contraseña123"
+        }
+      }
+    },
+    "SocialLoginRequest": {
+      "type": "object",
+      "required": ["token"],
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "ya29.a0AfH6SMB6fHcWXzSDX..."
+        }
+      }
+    },
+    "AuthResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        },
+        "user": {
+          "$ref": "#/definitions/UserResponse"
+        }
+      }
+    },
+    "UserResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "5f7d9e8f3c2a1b0e1d5c4b3a"
+        },
+        "email": {
+          "type": "string",
+          "example": "usuario@ejemplo.com"
+        },
+        "name": {
+          "type": "string",
+          "example": "Juan Pérez"
+        },
+        "avatar": {
+          "type": "string",
+          "example": "https://ejemplo.com/imagen.jpg"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2023-01-01T12:00:00Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2023-01-01T12:00:00Z"
+        }
+      }
+    },
+    "PublicUserResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "5f7d9e8f3c2a1b0e1d5c4b3a"
+        },
+        "name": {
+          "type": "string",
+          "example": "Juan Pérez"
+        },
+        "avatar": {
+          "type": "string",
+          "example": "https://ejemplo.com/imagen.jpg"
+        }
+      }
+    },
+    "UserUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Juan Pérez"
+        },
+        "avatar": {
+          "type": "string",
+          "example": "https://ejemplo.com/imagen.jpg"
+        },
+        "currentPassword": {
+          "type": "string",
+          "example": "contraseñaActual123"
+        },
+        "newPassword": {
+          "type": "string",
+          "example": "nuevaContraseña123"
+        }
+      }
+    },
+    "UserSettingsRequest": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "example": "es"
+        },
+        "notifications": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "boolean",
+              "example": true
+            },
+            "push": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["light", "dark", "system"],
+          "example": "dark"
+        }
+      }
+    },
+    "UserSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "example": "es"
+        },
+        "notifications": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "boolean",
+              "example": true
+            },
+            "push": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        },
+        "theme": {
+          "type": "string",
+          "example": "dark"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "example": "Error del servidor"
+            },
+            "status": {
+              "type": "integer",
+              "example": 500
+            }
+          }
+        }
+      }
+    }
+  }
+}
