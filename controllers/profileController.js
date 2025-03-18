@@ -24,7 +24,7 @@ const profileController = {
       }
       
       // Get user play time preferences
-      const playTimes = await userPlayTimeModel.getByUserId(userId);
+      const playTimes = await userPlayTimeModel.findByUserId(userId);
       
       // Return profile information
       return res.status(200).json({
@@ -49,8 +49,8 @@ const profileController = {
       const userId = req.params.id;
       
       // Check if user is updating their own profile
-      if (req.user.id !== userId) {
-        return res.status(403).json({ error: 'You can only update your own profile' });
+      if (parseInt(req.user.id) !== parseInt(userId)) {
+        return res.status(403).json({ error: 'Solo puedes actualizar tu propio perfil', userId: userId, user: req.user.id });
       }
       
       const { name, bio, profile_picture } = req.body;
@@ -228,7 +228,7 @@ const profileController = {
       }
       
       // Get play times
-      const playTimes = await userPlayTimeModel.getByUserId(userId);
+      const playTimes = await userPlayTimeModel.findByUserId(userId);
       
       return res.status(200).json({
         user_id: Number(userId),
@@ -264,7 +264,7 @@ const profileController = {
       }
       
       // Get updated play times
-      const playTimes = await userPlayTimeModel.getByUserId(userId);
+      const playTimes = await userPlayTimeModel.findByUserId(userId);
       
       return res.status(200).json({
         user_id: Number(userId),
@@ -290,7 +290,7 @@ const profileController = {
       }
       
       // Get updated play times
-      const playTimes = await userPlayTimeModel.getByUserId(userId);
+      const playTimes = await userPlayTimeModel.findByUserId(userId);
       
       return res.status(200).json({
         user_id: Number(userId),

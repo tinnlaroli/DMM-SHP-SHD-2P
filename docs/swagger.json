@@ -250,7 +250,11 @@
         }
       }
     },
-    "/auth/me": {
+    "/auth/me": {  "security": [
+      {
+        "Bearer": []
+      }
+    ],
       "get": {
         "summary": "Obtener información del usuario actual",
         "description": "Obtiene la información del usuario autenticado",
@@ -395,11 +399,11 @@
         }
       }
     },
-    "/api/users/{id}/profile": {
+    "/users/{id}/profile": {
       "get": {
-        "tags": ["Profile"],
         "summary": "Get user profile",
         "description": "Retrieves the complete profile information of a specified user",
+        "tags": ["Profile"],
         "parameters": [
           {
             "name": "id",
@@ -437,7 +441,7 @@
         },
         "security": [
           {
-            "BearerAuth": []
+            "Bearer": []
           }
         ]
       },
@@ -496,12 +500,12 @@
         },
         "security": [
           {
-            "BearerAuth": []
+            "Bearer": []
           }
         ]
       }
     },
-    "/api/users/{id}/games": {
+    "/users/{id}/games": {
       "get": {
         "tags": ["Games"],
         "summary": "Get user's preferred games",
@@ -543,12 +547,12 @@
         },
         "security": [
           {
-            "BearerAuth": []
+            "Bearer": []
           }
         ]
       }
     },
-    "/api/users/games": {
+    "/users/games": {
       "post": {
         "tags": ["Games"],
         "summary": "Add a preferred game",
@@ -591,12 +595,12 @@
         },
         "security": [
           {
-            "BearerAuth": []
+            "Bearer": []
           }
         ]
       }
     },
-    "/api/users/games/{gameId}": {
+    "/users/games/{gameId}": {
       "delete": {
         "tags": ["Games"],
         "summary": "Remove a preferred game",
@@ -638,12 +642,12 @@
         },
         "security": [
           {
-            "BearerAuth": []
+            "Bearer": []
           }
         ]
       }
     },
-    "/api/users/{id}/play-times": {
+    "/users/{id}/play-times": {
       "get": {
         "tags": ["Play Times"],
         "summary": "Get user's play time preferences",
@@ -685,12 +689,12 @@
         },
         "security": [
           {
-            "BearerAuth": []
+            "Bearer": []
           }
         ]
       }
     },
-    "/api/users/play-times": {
+    "/users/play-times": {
       "post": {
         "tags": ["Play Times"],
         "summary": "Add a play time preference",
@@ -733,12 +737,12 @@
         },
         "security": [
           {
-            "BearerAuth": []
+            "Bearer": []
           }
         ]
       }
     },
-    "/api/users/play-times/{timeId}": {
+    "/users/play-times/{timeId}": {
       "delete": {
         "tags": ["Play Times"],
         "summary": "Remove a play time preference",
@@ -774,7 +778,7 @@
         },
         "security": [
           {
-            "BearerAuth": []
+            "Bearer": []
           }
         ]
       }
