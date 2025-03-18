@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "API de Autenticación y Usuarios",
-    "description": "API para gestionar autenticación y perfiles de usuarios",
+    "description": "API para Tinder gamer",
     "version": "1.0.0"
   },
   "basePath": "/api",
