@@ -5,12 +5,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SplashComponent } from './splash/splash.component'; // Agrega esta línea
 
 @NgModule({
   declarations: [
     AppComponent,
-    SplashComponent // Agrega SplashComponent aquí
   ],
   imports: [
     BrowserModule,
