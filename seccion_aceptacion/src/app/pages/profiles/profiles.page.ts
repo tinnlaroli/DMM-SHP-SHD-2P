@@ -8,31 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilesPage implements OnInit {
 
-  profiles =[
-    { id: 1, name: 'John Doe', age: 25, bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nunc nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc. Nullam auctor, nunc nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc.' },
-    { id: 2, name: 'Jane Doe', age: 22, bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nunc nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc. Nullam auctor, nunc nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc.' },
+  profiles = [
+    { id: 1, name: 'John Doe', age: 25, bio: 'Amante de la naturaleza.', image: 'https://via.placeholder.com/150' },
+    { id: 2, name: 'Jane Doe', age: 22, bio: 'Apasionada por la música.', image: 'https://via.placeholder.com/150' },
+    { id: 3, name: 'Alice Smith', age: 30, bio: 'Fan de la tecnología.', image: 'https://via.placeholder.com/150' }
   ];
-
-  profile: any = null;
 
   constructor() { }
 
-  ngOnInit() {
-    this.loadProfile();
+  ngOnInit() {}
+
+  // Aceptar perfil
+  acceptProfile(profile: any) {
+    console.log('Perfil aceptado:', profile);
+    this.removeProfile(profile.id);
   }
 
-  loadProfile() {
-    this.profile = this.profiles.length ? this.profiles.shift() : null;
+  // Rechazar perfil
+  rejectProfile(profile: any) {
+    console.log('Perfil rechazado:', profile);
+    this.removeProfile(profile.id);
   }
 
-  acceptProfile() {
-    console.log('Perfil aceptado:', this.profile);
-    this.loadProfile();
+  // Elimina el perfil de la lista
+  removeProfile(id: number) {
+    this.profiles = this.profiles.filter(p => p.id !== id);
   }
-
-  rejectProfile() {
-    console.log('Perfil rechazado:', this.profile);
-    this.loadProfile();
-  }
-
 }

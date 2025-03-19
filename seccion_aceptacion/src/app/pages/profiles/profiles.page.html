@@ -5,28 +5,38 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-card *ngIf="profile">
-    <ion-img [src]="profile.image" alt="Foto de perfil"></ion-img>
-    <ion-card-header>
-      <ion-card-title>{{ profile.name }}</ion-card-title>
-      <ion-card-subtitle>{{ profile.age }} años</ion-card-subtitle>
-    </ion-card-header>
 
-    <ion-card-content>
-      <p>{{ profile.bio }}</p>
-    </ion-card-content>
+  <div *ngIf="profiles.length > 0; else noProfiles" class="profile-list">
 
-    <ion-footer>
-      <ion-button expand="full" color="danger" (click)="rejectProfile()">
-        ❌ Rechazar
-      </ion-button>
-      <ion-button expand="full" color="success" (click)="acceptProfile()">
+    <ion-card *ngFor="let profile of profiles" class="profile-card">
+      <ion-img [src]="profile.image" alt="Foto de perfil"></ion-img>
+
+      <ion-card-header>
+        <ion-card-title>{{ profile.name }}</ion-card-title>
+        <ion-card-subtitle>{{ profile.age }} años</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>{{ profile.bio }}</p>
+      </ion-card-content>
+
+      <ion-button expand="full" color="success" (click)="acceptProfile(profile)">
         ✅ Aceptar
       </ion-button>
-    </ion-footer>
-  </ion-card>
 
-  <div *ngIf="!profile" class="ion-text-center">
-    <p>No hay más perfiles disponibles.</p>
+      <ion-button expand="full" color="danger" (click)="rejectProfile(profile)">
+        ❌ Rechazar
+      </ion-button>
+
+    </ion-card>
+
   </div>
+
+  <!-- Mensaje si no hay más perfiles -->
+  <ng-template #noProfiles>
+    <div class="ion-text-center">
+      <p>No hay más perfiles disponibles.</p>
+    </div>
+  </ng-template>
+
 </ion-content>
