@@ -1,13 +1,32 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>profiles</ion-title>
+    <ion-title>Perfiles</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profiles</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card *ngIf="profile">
+    <ion-img [src]="profile.image" alt="Foto de perfil"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{ profile.name }}</ion-card-title>
+      <ion-card-subtitle>{{ profile.age }} años</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>{{ profile.bio }}</p>
+    </ion-card-content>
+
+    <ion-footer>
+      <ion-button expand="full" color="danger" (click)="rejectProfile()">
+        ❌ Rechazar
+      </ion-button>
+      <ion-button expand="full" color="success" (click)="acceptProfile()">
+        ✅ Aceptar
+      </ion-button>
+    </ion-footer>
+  </ion-card>
+
+  <div *ngIf="!profile" class="ion-text-center">
+    <p>No hay más perfiles disponibles.</p>
+  </div>
 </ion-content>
