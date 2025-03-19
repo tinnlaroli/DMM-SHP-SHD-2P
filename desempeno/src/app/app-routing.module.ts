@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { SplashComponent } from './splash/splash.component';
 
 const routes: Routes = [
   {
@@ -8,13 +7,9 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'splash',  // Ruta para el splash screen, si deseas mantenerla como ruta independiente
-    component: SplashComponent,  // Usamos el componente directamente aquí
+    path: 'splash',  // Ruta para el Splash Screen
+    loadChildren: () => import('./splash/splash.module').then(m => m.SplashPageModule), // Cambié el import para usar el módulo
   },
-  {
-    path: 'splash',
-    loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
-  }
 ];
 @NgModule({
   imports: [
