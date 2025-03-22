@@ -250,7 +250,7 @@
         }
       }
     },
-    "/auth/me": { 
+    "/auth/me": {
       "get": {
         "summary": "Obtener información del usuario actual",
         "description": "Obtiene la información del usuario autenticado",
@@ -778,6 +778,319 @@
           }
         ]
       }
+    },
+    "/posts": {
+      "get": {
+        "summary": "Obtener feed de publicaciones",
+        "description": "Obtiene una lista de publicaciones",
+        "tags": ["Publicaciones"],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Número de publicaciones a obtener",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página",
+            "required": false,
+            "type": "integer",
+            "default": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de publicaciones obtenida exitosamente",
+            "schema": {
+              "$ref": "#/definitions/PostListResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear nueva publicación",
+        "description": "Crea una nueva publicación",
+        "tags": ["Publicaciones"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "post",
+            "in": "body",
+            "description": "Datos de la publicación",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatePostRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Publicación creada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/PostResponse"
+            }
+          },
+          "400": {
+            "description": "Datos de la publicación inválidos",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "summary": "Obtener publicación específica",
+        "description": "Obtiene una publicación por su ID",
+        "tags": ["Publicaciones"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la publicación",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicación obtenida exitosamente",
+            "schema": {
+              "$ref": "#/definitions/PostResponse"
+            }
+          },
+          "404": {
+            "description": "Publicación no encontrada",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar publicación",
+        "description": "Actualiza una publicación existente",
+        "tags": ["Publicaciones"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la publicación",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "post",
+            "in": "body",
+            "description": "Datos de la publicación a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatePostRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicación actualizada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/PostResponse"
+            }
+          },
+          "400": {
+            "description": "Datos de la publicación inválidos",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Publicación no encontrada",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar publicación",
+        "description": "Elimina una publicación existente",
+        "tags": ["Publicaciones"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la publicación",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicación eliminada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "404": {
+            "description": "Publicación no encontrada",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/posts/{id}/media": {
+      "post": {
+        "summary": "Añadir contenido multimedia a una publicación",
+        "description": "Añade contenido multimedia a una publicación existente",
+        "tags": ["Publicaciones"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la publicación",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "media",
+            "in": "body",
+            "description": "Datos del contenido multimedia",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddMediaRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Contenido multimedia añadido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/MediaResponse"
+            }
+          },
+          "400": {
+            "description": "Datos del contenido multimedia inválidos",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Publicación no encontrada",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/posts/{id}/media/{mediaId}": {
+      "delete": {
+        "summary": "Eliminar contenido multimedia",
+        "description": "Elimina contenido multimedia de una publicación existente",
+        "tags": ["Publicaciones"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la publicación",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mediaId",
+            "in": "path",
+            "description": "ID del contenido multimedia",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contenido multimedia eliminado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "404": {
+            "description": "Contenido multimedia no encontrado",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1105,13 +1418,190 @@
       },
       "required": ["play_time_id"]
     },
-    "Error": {
+    "PostListResponse": {
       "type": "object",
       "properties": {
-        "error": {
-          "type": "string",
-          "description": "Error message"
+        "success": {
+          "type": "boolean"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Post"
+          }
         }
+      }
+    },
+    "PostResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "$ref": "#/definitions/Post"
+        }
+      }
+    },
+    "CreatePostRequest": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "post_type": {
+          "type": "string",
+          "enum": ["text", "image", "video", "link", "game_invitation"]
+        },
+        "game_title": {
+          "type": "string"
+        },
+        "game_platform": {
+          "type": "string"
+        },
+        "game_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "max_participants": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdatePostRequest": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "post_type": {
+          "type": "string",
+          "enum": ["text", "image", "video", "link", "game_invitation"]
+        },
+        "game_title": {
+          "type": "string"
+        },
+        "game_platform": {
+          "type": "string"
+        },
+        "game_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "max_participants": {
+          "type": "integer"
+        }
+      }
+    },
+    "AddMediaRequest": {
+      "type": "object",
+      "properties": {
+        "media_url": {
+          "type": "string"
+        },
+        "media_type": {
+          "type": "string",
+          "enum": ["image", "video"]
+        }
+      }
+    },
+    "MediaResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "$ref": "#/definitions/Media"
+        }
+      }
+    },
+    "SuccessResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Post": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "post_type": {
+          "type": "string",
+          "enum": ["text", "image", "video", "link", "game_invitation"]
+        },
+        "game_title": {
+          "type": "string"
+        },
+        "game_platform": {
+          "type": "string"
+        },
+        "game_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "max_participants": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Media": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "media_url": {
+          "type": "string"
+        },
+        "media_type": {
+          "type": "string",
+          "enum": ["image", "video"]
+        },
+        "post_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "Error": {
+    "type": "object",
+    "properties": {
+      "error": {
+        "type": "string",
+        "description": "Error message"
       }
     }
   }

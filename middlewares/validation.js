@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator');
+const { body, param, validationResult } = require('express-validator');
 
 const validateRegistration = [
   body('name').trim().notEmpty().withMessage('Name is required'),
@@ -72,6 +72,93 @@ const validateAddPlayTime = [
   body('play_time_id').isInt({ min: 1 })
     .withMessage('Play time ID must be a positive integer')
 ];
+
+const validateResults = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ 
+      success: false, 
+      message: 'Error de validación', 
+      errors: errors.array() 
+    });
+  }
+  next();
+};
+
+const validateCreatePost = [
+  body('content').optional().isString().trim()
+    .withMessage('El contenido debe ser texto'),
+  
+  body('post_type').isIn(['text', 'image', 'video', 'link', 'game_invitation'])
+    .withMessage('Tipo de publicación no válido'),
+  
+  // Validaciones específicas para invitaciones de juego
+  body('game_title').if(body('post_type').equals('game_invitation')).notEmpty().isString().trim()
+    .withMessage('El título del juego es requerido para invitaciones'),
+  
+  body('game_platform').if(body('post_type').equals('game_invitation')).notEmpty().isString().trim()
+    .withMessage('La plataforma del juego es requerida para invitaciones'),
+  
+  body('game_date').if(body('post_type').equals('game_invitation')).notEmpty().isISO8601()
+    .withMessage('La fecha del juego debe ser válida (formato ISO 8601)'),
+  
+  body('max_participants').if(body('post_type').equals('game_invitation')).optional().isInt({ min: 2, max: 100 })
+    .withMessage('El máximo de participantes debe ser entre 2 y 100'),
+  
+  validateResults
+];
+
+const validateUpdatePost = [
+  body('content').optional().isString().trim()
+    .withMessage('El contenido debe ser texto'),
+  
+  body('post_type').optional().isIn(['text', 'image', 'video', 'link', 'game_invitation'])
+    .withMessage('Tipo de publicación no válido'),
+  
+  // Validaciones condicionales si se actualiza a invitación de juego
+  body('game_title').if(body('post_type').equals('game_invitation')).notEmpty().isString().trim()
+    .withMessage('El título del juego es requerido para invitaciones'),
+  
+  body('game_platform').if(body('post_type').equals('game_invitation')).notEmpty().isString().trim()
+    .withMessage('La plataforma del juego es requerida para invitaciones'),
+  
+  body('game_date').if(body('post_type').equals('game_invitation')).notEmpty().isISO8601()
+    .withMessage('La fecha del juego debe ser válida (formato ISO 8601)'),
+  
+  body('max_participants').if(body('post_type').equals('game_invitation')).optional().isInt({ min: 2, max: 100 })
+    .withMessage('El máximo de participantes debe ser entre 2 y 100'),
+  
+  validateResults
+];
+
+const validateMedia = [
+  body('media_type').notEmpty().isIn(['image', 'video'])
+    .withMessage('Tipo de medio debe ser image o video'),
+  
+  body('media_url').notEmpty().isURL()
+    .withMessage('URL del medio debe ser una URL válida'),
+  
+  validateResults
+];
+
+const validateIdParam = [
+  param('id').isInt().toInt()
+    .withMessage('ID debe ser un número entero válido'),
+  
+  validateResults
+];
+
+const validateMediaIdParam = [
+  param('id').isInt().toInt()
+    .withMessage('ID del post debe ser un número entero válido'),
+  
+  param('mediaId').isInt().toInt()
+    .withMessage('ID del medio debe ser un número entero válido'),
+  
+  validateResults
+];
+
+
 module.exports = {
   validateRegistration,
   validateLogin,
@@ -79,5 +166,10 @@ module.exports = {
   validateUserSettings,
   validateUpdateProfile,
   validateAddGame,
-  validateAddPlayTime
+  validateAddPlayTime,
+  validateCreatePost,
+  validateUpdatePost,
+  validateMedia,
+  validateIdParam,
+  validateMediaIdParam
 };
