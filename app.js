@@ -22,10 +22,13 @@ app.use(helmet({
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       "img-src": ["'self'", "data:"],
-      "script-src": ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"]
+      "script-src": ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
+      "connect-src": ["'self'", "http://localhost", "http://localhost:3000"]
     }
   }
 }));
+
+
 app.use(compression());
 app.use(morgan('dev'));
 app.use(express.json());
