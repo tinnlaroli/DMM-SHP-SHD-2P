@@ -20,15 +20,16 @@ const isProd = process.env.NODE_ENV === 'production';
 app.use(cors());
 
 app.use(helmet({
-  contentSecurityPolicy: isProd ? undefined : {
+  contentSecurityPolicy: {
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       "img-src": ["'self'", "data:"],
       "script-src": ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
-      "connect-src": ["'self'", "http://localhost", "http://localhost:3000"]
+      "connect-src": ["'self'", "http://localhost:3000", "https://dmm-shp-shd-2p-production.up.railway.app"], // Permitir conexiones al dominio de producción
     }
   }
 }));
+
 
 app.use(compression());
 app.use(morgan(isProd ? 'combined' : 'dev'));
