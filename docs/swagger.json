@@ -10,7 +10,9 @@
       "post": {
         "summary": "Registro de nuevos usuarios",
         "description": "Crea una nueva cuenta de usuario",
-        "tags": ["Autenticación"],
+        "tags": [
+          "Autenticaci\u00f3n"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -26,27 +28,29 @@
             "description": "Usuario registrado exitosamente"
           },
           "400": {
-            "description": "Datos de registro inválidos"
+            "description": "Datos de registro inv\u00e1lidos"
           },
           "409": {
-            "description": "El email ya está en uso"
+            "description": "El email ya est\u00e1 en uso"
           }
         }
       }
     },
     "/auth/login": {
       "post": {
-        "tags": ["Autenticación"],
-        "summary": "Inicio de sesión",
-        "description": "Inicia sesión con email y contraseña",
+        "tags": [
+          "Autenticaci\u00f3n"
+        ],
+        "summary": "Inicio de sesi\u00f3n",
+        "description": "Inicia sesi\u00f3n con email y contrase\u00f1a",
         "operationId": "post_/auth/login",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Inicio de sesión exitoso"
+            "description": "Inicio de sesi\u00f3n exitoso"
           },
           "401": {
-            "description": "Credenciales inválidas"
+            "description": "Credenciales inv\u00e1lidas"
           }
         },
         "security": [
@@ -68,36 +72,51 @@
     },
     "/auth/social/google": {
       "post": {
-        "tags": ["Autenticación Social"],
-        "summary": "Inicio de sesión con Google",
-        "description": "Inicia sesión o registra un usuario con token de Google",
+        "tags": [
+          "Autenticaci\u00f3n Social"
+        ],
+        "summary": "Inicio de sesi\u00f3n con Google",
+        "description": "Inicia sesi\u00f3n o registra un usuario con token de Google",
         "operationId": "post_/auth/social/google",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Inicio de sesión social exitoso"
+            "description": "Inicio de sesi\u00f3n social exitoso"
           },
           "401": {
-            "description": "Token social inválido"
+            "description": "Token social inv\u00e1lido"
           }
         },
         "security": [
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/auth/social/google/start": {
       "get": {
-        "tags": ["Autenticación Social"],
-        "summary": "Iniciar flujo de autenticación con Google",
-        "description": "Redirecciona al usuario a la página de inicio de sesión de Google",
+        "tags": [
+          "Autenticaci\u00f3n Social"
+        ],
+        "summary": "Iniciar flujo de autenticaci\u00f3n con Google",
+        "description": "Redirecciona al usuario a la p\u00e1gina de inicio de sesi\u00f3n de Google",
         "operationId": "get_/auth/social/google/start",
         "parameters": [],
         "responses": {
           "302": {
-            "description": "Redirección a la página de autenticación de Google"
+            "description": "Redirecci\u00f3n a la p\u00e1gina de autenticaci\u00f3n de Google"
           }
         },
         "security": [
@@ -109,17 +128,19 @@
     },
     "/auth/social/google/callback": {
       "get": {
-        "tags": ["Autenticación Social"],
-        "summary": "Callback de autenticación de Google",
-        "description": "Endpoint de callback para procesar la respuesta de autenticación de Google",
+        "tags": [
+          "Autenticaci\u00f3n Social"
+        ],
+        "summary": "Callback de autenticaci\u00f3n de Google",
+        "description": "Endpoint de callback para procesar la respuesta de autenticaci\u00f3n de Google",
         "operationId": "get_/auth/social/google/callback",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Autenticación exitosa"
+            "description": "Autenticaci\u00f3n exitosa"
           },
           "401": {
-            "description": "Falló la autenticación"
+            "description": "Fall\u00f3 la autenticaci\u00f3n"
           }
         },
         "security": [
@@ -131,36 +152,51 @@
     },
     "/auth/social/facebook": {
       "post": {
-        "tags": ["Autenticación Social"],
-        "summary": "Inicio de sesión con Facebook",
-        "description": "Inicia sesión o registra un usuario con token de Facebook",
+        "tags": [
+          "Autenticaci\u00f3n Social"
+        ],
+        "summary": "Inicio de sesi\u00f3n con Facebook",
+        "description": "Inicia sesi\u00f3n o registra un usuario con token de Facebook",
         "operationId": "post_/auth/social/facebook",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Inicio de sesión social exitoso"
+            "description": "Inicio de sesi\u00f3n social exitoso"
           },
           "401": {
-            "description": "Token social inválido"
+            "description": "Token social inv\u00e1lido"
           }
         },
         "security": [
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/auth/social/facebook/start": {
       "get": {
-        "tags": ["Autenticación Social"],
-        "summary": "Iniciar flujo de autenticación con Facebook",
-        "description": "Redirecciona al usuario a la página de inicio de sesión de Facebook",
+        "tags": [
+          "Autenticaci\u00f3n Social"
+        ],
+        "summary": "Iniciar flujo de autenticaci\u00f3n con Facebook",
+        "description": "Redirecciona al usuario a la p\u00e1gina de inicio de sesi\u00f3n de Facebook",
         "operationId": "get_/auth/social/facebook/start",
         "parameters": [],
         "responses": {
           "302": {
-            "description": "Redirección a la página de autenticación de Facebook"
+            "description": "Redirecci\u00f3n a la p\u00e1gina de autenticaci\u00f3n de Facebook"
           }
         },
         "security": [
@@ -172,17 +208,19 @@
     },
     "/auth/social/facebook/callback": {
       "get": {
-        "tags": ["Autenticación Social"],
-        "summary": "Callback de autenticación de Facebook",
-        "description": "Endpoint de callback para procesar la respuesta de autenticación de Facebook",
+        "tags": [
+          "Autenticaci\u00f3n Social"
+        ],
+        "summary": "Callback de autenticaci\u00f3n de Facebook",
+        "description": "Endpoint de callback para procesar la respuesta de autenticaci\u00f3n de Facebook",
         "operationId": "get_/auth/social/facebook/callback",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Autenticación exitosa"
+            "description": "Autenticaci\u00f3n exitosa"
           },
           "401": {
-            "description": "Falló la autenticación"
+            "description": "Fall\u00f3 la autenticaci\u00f3n"
           }
         },
         "security": [
@@ -194,14 +232,16 @@
     },
     "/auth/logout": {
       "post": {
-        "tags": ["Autenticación"],
-        "summary": "Cierre de sesión",
-        "description": "Cierra la sesión del usuario actual",
+        "tags": [
+          "Autenticaci\u00f3n"
+        ],
+        "summary": "Cierre de sesi\u00f3n",
+        "description": "Cierra la sesi\u00f3n del usuario actual",
         "operationId": "post_/auth/logout",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Sesión cerrada exitosamente"
+            "description": "Sesi\u00f3n cerrada exitosamente"
           },
           "401": {
             "description": "No autorizado"
@@ -211,19 +251,32 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/auth/me": {
       "get": {
-        "tags": ["Usuarios"],
-        "summary": "Obtener información del usuario actual",
-        "description": "Obtiene la información del usuario autenticado",
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtener informaci\u00f3n del usuario actual",
+        "description": "Obtiene la informaci\u00f3n del usuario autenticado",
         "operationId": "get_/auth/me",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Información del usuario obtenida exitosamente"
+            "description": "Informaci\u00f3n del usuario obtenida exitosamente"
           },
           "401": {
             "description": "No autorizado"
@@ -236,17 +289,19 @@
         ]
       },
       "put": {
-        "tags": ["Usuarios"],
-        "summary": "Actualizar información del usuario actual",
-        "description": "Actualiza la información del usuario autenticado",
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Actualizar informaci\u00f3n del usuario actual",
+        "description": "Actualiza la informaci\u00f3n del usuario autenticado",
         "operationId": "put_/auth/me",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Información del usuario actualizada exitosamente"
+            "description": "Informaci\u00f3n del usuario actualizada exitosamente"
           },
           "400": {
-            "description": "Datos inválidos"
+            "description": "Datos inv\u00e1lidos"
           },
           "401": {
             "description": "No autorizado"
@@ -271,9 +326,11 @@
     },
     "/users/{id}": {
       "get": {
-        "tags": ["Usuarios"],
-        "summary": "Obtener perfil público de un usuario",
-        "description": "Obtiene el perfil público de un usuario por su ID",
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtener perfil p\u00fablico de un usuario",
+        "description": "Obtiene el perfil p\u00fablico de un usuario por su ID",
         "operationId": "get_/users/{id}",
         "parameters": [
           {
@@ -303,7 +360,9 @@
     },
     "/users/settings": {
       "put": {
-        "tags": ["Usuarios"],
+        "tags": [
+          "Usuarios"
+        ],
         "summary": "Actualizar configuraciones de usuario",
         "description": "Actualiza las configuraciones del usuario actual",
         "operationId": "put_/users/settings",
@@ -313,7 +372,7 @@
             "description": "Configuraciones actualizadas exitosamente"
           },
           "400": {
-            "description": "Datos inválidos"
+            "description": "Datos inv\u00e1lidos"
           },
           "401": {
             "description": "No autorizado"
@@ -338,7 +397,9 @@
     },
     "/users/{id}/profile": {
       "get": {
-        "tags": ["Profile"],
+        "tags": [
+          "Profile"
+        ],
         "summary": "Get user profile",
         "description": "Retrieves the complete profile information of a specified user",
         "operationId": "get_/users/{id}/profile",
@@ -374,7 +435,9 @@
         ]
       },
       "put": {
-        "tags": ["Profile"],
+        "tags": [
+          "Profile"
+        ],
         "summary": "Update user profile",
         "description": "Updates the profile information of the authenticated user",
         "operationId": "put_/users/{id}/profile",
@@ -410,12 +473,25 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/users/{id}/games": {
       "get": {
-        "tags": ["Games"],
+        "tags": [
+          "Games"
+        ],
         "summary": "Get user's preferred games",
         "description": "Retrieves the list of games preferred by a specified user",
         "operationId": "get_/users/{id}/games",
@@ -453,7 +529,9 @@
     },
     "/users/games": {
       "post": {
-        "tags": ["Games"],
+        "tags": [
+          "Games"
+        ],
         "summary": "Add a preferred game",
         "description": "Adds a game to the authenticated user's preferred games list",
         "operationId": "post_/users/games",
@@ -476,12 +554,25 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/users/games/{gameId}": {
       "delete": {
-        "tags": ["Games"],
+        "tags": [
+          "Games"
+        ],
         "summary": "Remove a preferred game",
         "description": "Removes a game from the authenticated user's preferred games list",
         "operationId": "delete_/users/games/{gameId}",
@@ -519,7 +610,9 @@
     },
     "/users/{id}/play-times": {
       "get": {
-        "tags": ["Play Times"],
+        "tags": [
+          "Play Times"
+        ],
         "summary": "Get user's play time preferences",
         "description": "Retrieves the play time preferences of a specified user",
         "operationId": "get_/users/{id}/play-times",
@@ -557,7 +650,9 @@
     },
     "/users/play-times": {
       "post": {
-        "tags": ["Play Times"],
+        "tags": [
+          "Play Times"
+        ],
         "summary": "Add a play time preference",
         "description": "Adds a play time preference to the authenticated user",
         "operationId": "post_/users/play-times",
@@ -580,12 +675,25 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/users/play-times/{timeId}": {
       "delete": {
-        "tags": ["Play Times"],
+        "tags": [
+          "Play Times"
+        ],
         "summary": "Remove a play time preference",
         "description": "Removes a play time preference from the authenticated user",
         "operationId": "delete_/users/play-times/{timeId}",
@@ -620,7 +728,9 @@
     },
     "/posts": {
       "get": {
-        "tags": ["Publicaciones"],
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Obtener feed de publicaciones",
         "description": "Obtiene una lista de publicaciones",
         "operationId": "get_/posts",
@@ -632,7 +742,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Número de publicaciones a obtener"
+            "description": "N\u00famero de publicaciones a obtener"
           },
           {
             "name": "page",
@@ -641,7 +751,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Número de página"
+            "description": "N\u00famero de p\u00e1gina"
           }
         ],
         "responses": {
@@ -656,30 +766,22 @@
           {
             "Bearer": []
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PostCreateRequest"
-              }
-            }
-          }
-        }
+        ]
       },
       "post": {
-        "tags": ["Publicaciones"],
-        "summary": "Crear nueva publicación",
-        "description": "Crea una nueva publicación",
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Crear nueva publicaci\u00f3n",
+        "description": "Crea una nueva publicaci\u00f3n",
         "operationId": "post_/posts",
         "parameters": [],
         "responses": {
           "201": {
-            "description": "Publicación creada exitosamente"
+            "description": "Publicaci\u00f3n creada exitosamente"
           },
           "400": {
-            "description": "Datos de la publicación inválidos"
+            "description": "Datos de la publicaci\u00f3n inv\u00e1lidos"
           },
           "500": {
             "description": "Error interno del servidor"
@@ -704,9 +806,11 @@
     },
     "/posts/{id}": {
       "get": {
-        "tags": ["Publicaciones"],
-        "summary": "Obtener publicación específica",
-        "description": "Obtiene una publicación por su ID",
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Obtener publicaci\u00f3n espec\u00edfica",
+        "description": "Obtiene una publicaci\u00f3n por su ID",
         "operationId": "get_/posts/{id}",
         "parameters": [
           {
@@ -716,15 +820,15 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
           "200": {
-            "description": "Publicación obtenida exitosamente"
+            "description": "Publicaci\u00f3n obtenida exitosamente"
           },
           "404": {
-            "description": "Publicación no encontrada"
+            "description": "Publicaci\u00f3n no encontrada"
           },
           "500": {
             "description": "Error interno del servidor"
@@ -734,22 +838,14 @@
           {
             "Bearer": []
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PostUpdateRequest"
-              }
-            }
-          }
-        }
+        ]
       },
       "put": {
-        "tags": ["Publicaciones"],
-        "summary": "Actualizar publicación",
-        "description": "Actualiza una publicación existente",
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Actualizar publicaci\u00f3n",
+        "description": "Actualiza una publicaci\u00f3n existente",
         "operationId": "put_/posts/{id}",
         "parameters": [
           {
@@ -759,18 +855,18 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
           "200": {
-            "description": "Publicación actualizada exitosamente"
+            "description": "Publicaci\u00f3n actualizada exitosamente"
           },
           "400": {
-            "description": "Datos de la publicación inválidos"
+            "description": "Datos de la publicaci\u00f3n inv\u00e1lidos"
           },
           "404": {
-            "description": "Publicación no encontrada"
+            "description": "Publicaci\u00f3n no encontrada"
           },
           "500": {
             "description": "Error interno del servidor"
@@ -793,9 +889,11 @@
         }
       },
       "delete": {
-        "tags": ["Publicaciones"],
-        "summary": "Eliminar publicación",
-        "description": "Elimina una publicación existente",
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Eliminar publicaci\u00f3n",
+        "description": "Elimina una publicaci\u00f3n existente",
         "operationId": "delete_/posts/{id}",
         "parameters": [
           {
@@ -805,15 +903,15 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
           "200": {
-            "description": "Publicación eliminada exitosamente"
+            "description": "Publicaci\u00f3n eliminada exitosamente"
           },
           "404": {
-            "description": "Publicación no encontrada"
+            "description": "Publicaci\u00f3n no encontrada"
           },
           "500": {
             "description": "Error interno del servidor"
@@ -838,9 +936,11 @@
     },
     "/posts/{id}/media": {
       "post": {
-        "tags": ["Publicaciones"],
-        "summary": "Añadir contenido multimedia a una publicación",
-        "description": "Añade contenido multimedia a una publicación existente",
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "A\u00f1adir contenido multimedia a una publicaci\u00f3n",
+        "description": "A\u00f1ade contenido multimedia a una publicaci\u00f3n existente",
         "operationId": "post_/posts/{id}/media",
         "parameters": [
           {
@@ -850,18 +950,18 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
           "201": {
-            "description": "Contenido multimedia añadido exitosamente"
+            "description": "Contenido multimedia a\u00f1adido exitosamente"
           },
           "400": {
-            "description": "Datos del contenido multimedia inválidos"
+            "description": "Datos del contenido multimedia inv\u00e1lidos"
           },
           "404": {
-            "description": "Publicación no encontrada"
+            "description": "Publicaci\u00f3n no encontrada"
           },
           "500": {
             "description": "Error interno del servidor"
@@ -871,14 +971,27 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/posts/{id}/media/{mediaId}": {
       "delete": {
-        "tags": ["Publicaciones"],
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Eliminar contenido multimedia",
-        "description": "Elimina contenido multimedia de una publicación existente",
+        "description": "Elimina contenido multimedia de una publicaci\u00f3n existente",
         "operationId": "delete_/posts/{id}/media/{mediaId}",
         "parameters": [
           {
@@ -888,7 +1001,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           },
           {
             "name": "mediaId",
@@ -920,9 +1033,11 @@
     },
     "/social/posts/{id}/like": {
       "post": {
-        "tags": ["Social Interactions"],
-        "summary": "Dar like a una publicación",
-        "description": "Permite al usuario dar like a una publicación específica",
+        "tags": [
+          "Social Interactions"
+        ],
+        "summary": "Dar like a una publicaci\u00f3n",
+        "description": "Permite al usuario dar like a una publicaci\u00f3n espec\u00edfica",
         "operationId": "post_/social/posts/{id}/like",
         "parameters": [
           {
@@ -932,30 +1047,43 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
           "201": {
-            "description": "Like añadido correctamente"
+            "description": "Like a\u00f1adido correctamente"
           },
           "401": {
             "description": "No autorizado"
           },
           "404": {
-            "description": "Publicación no encontrada"
+            "description": "Publicaci\u00f3n no encontrada"
           }
         },
         "security": [
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       },
       "delete": {
-        "tags": ["Social Interactions"],
-        "summary": "Quitar like de una publicación",
-        "description": "Permite al usuario quitar su like de una publicación",
+        "tags": [
+          "Social Interactions"
+        ],
+        "summary": "Quitar like de una publicaci\u00f3n",
+        "description": "Permite al usuario quitar su like de una publicaci\u00f3n",
         "operationId": "delete_/social/posts/{id}/like",
         "parameters": [
           {
@@ -965,7 +1093,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
@@ -988,9 +1116,11 @@
     },
     "/social/posts/{id}/favorite": {
       "post": {
-        "tags": ["Social Interactions"],
-        "summary": "Marcar publicación como favorito",
-        "description": "Permite al usuario marcar una publicación como favorita",
+        "tags": [
+          "Social Interactions"
+        ],
+        "summary": "Marcar publicaci\u00f3n como favorito",
+        "description": "Permite al usuario marcar una publicaci\u00f3n como favorita",
         "operationId": "post_/social/posts/{id}/favorite",
         "parameters": [
           {
@@ -1000,30 +1130,43 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
           "201": {
-            "description": "Publicación marcada como favorita correctamente"
+            "description": "Publicaci\u00f3n marcada como favorita correctamente"
           },
           "401": {
             "description": "No autorizado"
           },
           "404": {
-            "description": "Publicación no encontrada"
+            "description": "Publicaci\u00f3n no encontrada"
           }
         },
         "security": [
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       },
       "delete": {
-        "tags": ["Social Interactions"],
-        "summary": "Quitar publicación de favoritos",
-        "description": "Permite al usuario quitar una publicación de sus favoritos",
+        "tags": [
+          "Social Interactions"
+        ],
+        "summary": "Quitar publicaci\u00f3n de favoritos",
+        "description": "Permite al usuario quitar una publicaci\u00f3n de sus favoritos",
         "operationId": "delete_/social/posts/{id}/favorite",
         "parameters": [
           {
@@ -1033,12 +1176,12 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
           "200": {
-            "description": "Publicación eliminada de favoritos correctamente"
+            "description": "Publicaci\u00f3n eliminada de favoritos correctamente"
           },
           "401": {
             "description": "No autorizado"
@@ -1056,9 +1199,11 @@
     },
     "/social/posts/{id}/comments": {
       "get": {
-        "tags": ["Social Interactions"],
-        "summary": "Obtener comentarios de una publicación",
-        "description": "Obtiene todos los comentarios de una publicación específica",
+        "tags": [
+          "Social Interactions"
+        ],
+        "summary": "Obtener comentarios de una publicaci\u00f3n",
+        "description": "Obtiene todos los comentarios de una publicaci\u00f3n espec\u00edfica",
         "operationId": "get_/social/posts/{id}/comments",
         "parameters": [
           {
@@ -1068,7 +1213,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
@@ -1079,29 +1224,21 @@
             "description": "No autorizado"
           },
           "404": {
-            "description": "Publicación no encontrada"
+            "description": "Publicaci\u00f3n no encontrada"
           }
         },
         "security": [
           {
             "Bearer": []
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommentRequest"
-              }
-            }
-          }
-        }
+        ]
       },
       "post": {
-        "tags": ["Social Interactions"],
-        "summary": "Añadir comentario a una publicación",
-        "description": "Permite al usuario añadir un comentario a una publicación",
+        "tags": [
+          "Social Interactions"
+        ],
+        "summary": "A\u00f1adir comentario a una publicaci\u00f3n",
+        "description": "Permite al usuario a\u00f1adir un comentario a una publicaci\u00f3n",
         "operationId": "post_/social/posts/{id}/comments",
         "parameters": [
           {
@@ -1111,21 +1248,21 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID de la publicación"
+            "description": "ID de la publicaci\u00f3n"
           }
         ],
         "responses": {
           "201": {
-            "description": "Comentario añadido correctamente"
+            "description": "Comentario a\u00f1adido correctamente"
           },
           "400": {
-            "description": "Datos de entrada inválidos"
+            "description": "Datos de entrada inv\u00e1lidos"
           },
           "401": {
             "description": "No autorizado"
           },
           "404": {
-            "description": "Publicación no encontrada"
+            "description": "Publicaci\u00f3n no encontrada"
           }
         },
         "security": [
@@ -1142,10 +1279,12 @@
                 "properties": {
                   "content": {
                     "type": "string",
-                    "example": "¡Gran publicación!"
+                    "example": "\u00a1Gran publicaci\u00f3n!"
                   }
                 },
-                "required": ["content"]
+                "required": [
+                  "content"
+                ]
               }
             }
           }
@@ -1154,7 +1293,9 @@
     },
     "/social/comments/{id}": {
       "put": {
-        "tags": ["Social Interactions"],
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Actualizar un comentario",
         "description": "Permite al usuario actualizar su propio comentario",
         "operationId": "put_/social/comments/{id}",
@@ -1174,7 +1315,7 @@
             "description": "Comentario actualizado correctamente"
           },
           "400": {
-            "description": "Datos de entrada inválidos"
+            "description": "Datos de entrada inv\u00e1lidos"
           },
           "401": {
             "description": "No autorizado"
@@ -1200,14 +1341,18 @@
                     "example": "Comentario actualizado"
                   }
                 },
-                "required": ["content"]
+                "required": [
+                  "content"
+                ]
               }
             }
           }
         }
       },
       "delete": {
-        "tags": ["Social Interactions"],
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Eliminar un comentario",
         "description": "Permite al usuario eliminar su propio comentario",
         "operationId": "delete_/social/comments/{id}",
@@ -1252,7 +1397,9 @@
     },
     "/social/comments/{id}/reply": {
       "post": {
-        "tags": ["Social Interactions"],
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Responder a un comentario",
         "description": "Permite al usuario responder a un comentario existente",
         "operationId": "post_/social/comments/{id}/reply",
@@ -1269,10 +1416,10 @@
         ],
         "responses": {
           "201": {
-            "description": "Respuesta añadida correctamente"
+            "description": "Respuesta a\u00f1adida correctamente"
           },
           "400": {
-            "description": "Datos de entrada inválidos"
+            "description": "Datos de entrada inv\u00e1lidos"
           },
           "401": {
             "description": "No autorizado"
@@ -1298,7 +1445,9 @@
                     "example": "Respuesta al comentario"
                   }
                 },
-                "required": ["content"]
+                "required": [
+                  "content"
+                ]
               }
             }
           }
@@ -1307,7 +1456,9 @@
     },
     "/social/comments/{id}/like": {
       "post": {
-        "tags": ["Social Interactions"],
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Dar like a un comentario",
         "description": "Permite al usuario dar like a un comentario",
         "operationId": "post_/social/comments/{id}/like",
@@ -1324,7 +1475,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Like añadido correctamente"
+            "description": "Like a\u00f1adido correctamente"
           },
           "401": {
             "description": "No autorizado"
@@ -1337,10 +1488,23 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       },
       "delete": {
-        "tags": ["Social Interactions"],
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Quitar like de un comentario",
         "description": "Permite al usuario quitar su like de un comentario",
         "operationId": "delete_/social/comments/{id}/like",
@@ -1375,7 +1539,9 @@
     },
     "/matches": {
       "get": {
-        "tags": ["Matches"],
+        "tags": [
+          "Matches"
+        ],
         "summary": "Obtener todos los matches del usuario",
         "description": "Retorna todos los matches del usuario autenticado.",
         "operationId": "get_/matches",
@@ -1397,7 +1563,9 @@
     },
     "/matches/recommendations": {
       "get": {
-        "tags": ["Matches"],
+        "tags": [
+          "Matches"
+        ],
         "summary": "Recomendaciones de matches",
         "description": "Devuelve una lista de usuarios recomendados con su puntaje de compatibilidad.",
         "operationId": "get_/matches/recommendations",
@@ -1416,9 +1584,11 @@
     },
     "/matches/{id}": {
       "get": {
-        "tags": ["Matches"],
+        "tags": [
+          "Matches"
+        ],
         "summary": "Detalle de un match",
-        "description": "Obtiene la información de un match específico.",
+        "description": "Obtiene la informaci\u00f3n de un match espec\u00edfico.",
         "operationId": "get_/matches/{id}",
         "parameters": [
           {
@@ -1446,7 +1616,9 @@
         ]
       },
       "delete": {
-        "tags": ["Matches"],
+        "tags": [
+          "Matches"
+        ],
         "summary": "Eliminar match",
         "description": "Elimina un match existente.",
         "operationId": "delete_/matches/{id}",
@@ -1478,7 +1650,9 @@
     },
     "/matches/calculate/{userId}": {
       "post": {
-        "tags": ["Matches"],
+        "tags": [
+          "Matches"
+        ],
         "summary": "Calcular compatibilidad",
         "description": "Calcula la compatibilidad entre el usuario autenticado y otro usuario.",
         "operationId": "post_/matches/calculate/{userId}",
@@ -1498,7 +1672,7 @@
             "description": "Compatibilidad calculada"
           },
           "400": {
-            "description": "ID inválido"
+            "description": "ID inv\u00e1lido"
           },
           "401": {
             "description": "No autorizado"
@@ -1508,12 +1682,25 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/game-invitations": {
       "get": {
-        "tags": ["Game Invitations"],
+        "tags": [
+          "Game Invitations"
+        ],
         "summary": "Obtener todas las invitaciones activas",
         "description": "",
         "operationId": "get_/game-invitations",
@@ -1527,27 +1714,19 @@
           {
             "Bearer": []
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GameInvitationCreateRequest"
-              }
-            }
-          }
-        }
+        ]
       },
       "post": {
-        "tags": ["Game Invitations"],
-        "summary": "Crear nueva invitación",
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Crear nueva invitaci\u00f3n",
         "description": "",
         "operationId": "post_/game-invitations",
         "parameters": [],
         "responses": {
           "201": {
-            "description": "Invitación creada"
+            "description": "Invitaci\u00f3n creada"
           }
         },
         "security": [
@@ -1569,8 +1748,10 @@
     },
     "/game-invitations/{id}": {
       "get": {
-        "tags": ["Game Invitations"],
-        "summary": "Ver detalles de invitación",
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Ver detalles de invitaci\u00f3n",
         "description": "",
         "operationId": "get_/game-invitations/{id}",
         "parameters": [
@@ -1586,7 +1767,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Detalle de invitación"
+            "description": "Detalle de invitaci\u00f3n"
           },
           "404": {
             "description": "No encontrada"
@@ -1596,21 +1777,13 @@
           {
             "Bearer": []
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GameInvitationUpdateRequest"
-              }
-            }
-          }
-        }
+        ]
       },
       "put": {
-        "tags": ["Game Invitations"],
-        "summary": "Actualizar invitación",
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Actualizar invitaci\u00f3n",
         "description": "",
         "operationId": "put_/game-invitations/{id}",
         "parameters": [
@@ -1626,7 +1799,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Invitación actualizada"
+            "description": "Invitaci\u00f3n actualizada"
           }
         },
         "security": [
@@ -1646,8 +1819,10 @@
         }
       },
       "delete": {
-        "tags": ["Game Invitations"],
-        "summary": "Cancelar invitación",
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Cancelar invitaci\u00f3n",
         "description": "",
         "operationId": "delete_/game-invitations/{id}",
         "parameters": [
@@ -1663,7 +1838,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Invitación cancelada"
+            "description": "Invitaci\u00f3n cancelada"
           },
           "403": {
             "description": "No autorizado"
@@ -1688,8 +1863,10 @@
     },
     "/game-invitations/{id}/join": {
       "post": {
-        "tags": ["Game Invitations"],
-        "summary": "Unirse a una invitación",
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Unirse a una invitaci\u00f3n",
         "description": "",
         "operationId": "post_/game-invitations/{id}/join",
         "parameters": [
@@ -1705,20 +1882,33 @@
         ],
         "responses": {
           "201": {
-            "description": "Unido a la invitación"
+            "description": "Unido a la invitaci\u00f3n"
           }
         },
         "security": [
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/game-invitations/{id}/status": {
       "put": {
-        "tags": ["Game Invitations"],
-        "summary": "Actualizar estado de participación",
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Actualizar estado de participaci\u00f3n",
         "description": "",
         "operationId": "put_/game-invitations/{id}/status",
         "parameters": [
@@ -1756,14 +1946,16 @@
     },
     "/game-invitations/upcoming": {
       "get": {
-        "tags": ["Game Invitations"],
-        "summary": "Ver próximas citas de juego",
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Ver pr\u00f3ximas citas de juego",
         "description": "",
         "operationId": "get_/game-invitations/upcoming",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Lista de próximas invitaciones"
+            "description": "Lista de pr\u00f3ximas invitaciones"
           }
         },
         "security": [
@@ -1775,7 +1967,9 @@
     },
     "/notifications": {
       "get": {
-        "tags": ["Notifications"],
+        "tags": [
+          "Notifications"
+        ],
         "summary": "Obtener notificaciones del usuario",
         "description": "",
         "operationId": "get_/notifications",
@@ -1794,8 +1988,10 @@
     },
     "/notifications/{id}/read": {
       "put": {
-        "tags": ["Notifications"],
-        "summary": "Marcar notificación como leída",
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Marcar notificaci\u00f3n como le\u00edda",
         "description": "",
         "operationId": "put_/notifications/{id}/read",
         "parameters": [
@@ -1811,42 +2007,68 @@
         ],
         "responses": {
           "200": {
-            "description": "Notificación marcada como leída"
+            "description": "Notificaci\u00f3n marcada como le\u00edda"
           },
           "404": {
-            "description": "Notificación no encontrada"
+            "description": "Notificaci\u00f3n no encontrada"
           }
         },
         "security": [
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/notifications/read-all": {
       "put": {
-        "tags": ["Notifications"],
-        "summary": "Marcar todas las notificaciones como leídas",
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Marcar todas las notificaciones como le\u00eddas",
         "description": "",
         "operationId": "put_/notifications/read-all",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Todas las notificaciones marcadas como leídas"
+            "description": "Todas las notificaciones marcadas como le\u00eddas"
           }
         },
         "security": [
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/notifications/{id}": {
       "delete": {
-        "tags": ["Notifications"],
-        "summary": "Eliminar notificación",
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Eliminar notificaci\u00f3n",
         "description": "",
         "operationId": "delete_/notifications/{id}",
         "parameters": [
@@ -1862,10 +2084,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Notificación eliminada correctamente"
+            "description": "Notificaci\u00f3n eliminada correctamente"
           },
           "404": {
-            "description": "Notificación no encontrada"
+            "description": "Notificaci\u00f3n no encontrada"
           }
         },
         "security": [
@@ -1877,7 +2099,9 @@
     },
     "/reports": {
       "post": {
-        "tags": ["Reports"],
+        "tags": [
+          "Reports"
+        ],
         "summary": "Crear reporte",
         "description": "",
         "operationId": "post_/reports",
@@ -1904,7 +2128,9 @@
         }
       },
       "get": {
-        "tags": ["Reports"],
+        "tags": [
+          "Reports"
+        ],
         "summary": "Ver reportes (admin)",
         "description": "",
         "operationId": "get_/reports",
@@ -1921,22 +2147,14 @@
           {
             "Bearer": []
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReportCreateRequest"
-              }
-            }
-          }
-        }
+        ]
       }
     },
     "/reports/{id}/status": {
       "put": {
-        "tags": ["Reports"],
+        "tags": [
+          "Reports"
+        ],
         "summary": "Actualizar estado de reporte",
         "description": "",
         "operationId": "put_/reports/{id}/status",
@@ -1966,12 +2184,25 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
       }
     },
     "/search/users": {
       "get": {
-        "tags": ["Search"],
+        "tags": [
+          "Search"
+        ],
         "summary": "Buscar usuarios",
         "description": "",
         "operationId": "get_/search/users",
@@ -2000,7 +2231,9 @@
     },
     "/search/posts": {
       "get": {
-        "tags": ["Search"],
+        "tags": [
+          "Search"
+        ],
         "summary": "Buscar publicaciones",
         "description": "",
         "operationId": "get_/search/posts",
@@ -2012,7 +2245,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Texto a buscar en contenido o títulos de juegos"
+            "description": "Texto a buscar en contenido o t\u00edtulos de juegos"
           }
         ],
         "responses": {
@@ -2029,7 +2262,9 @@
     },
     "/search/games": {
       "get": {
-        "tags": ["Search"],
+        "tags": [
+          "Search"
+        ],
         "summary": "Buscar juegos",
         "description": "",
         "operationId": "get_/search/games",
@@ -2058,7 +2293,9 @@
     },
     "/search/game-invitations": {
       "get": {
-        "tags": ["Search"],
+        "tags": [
+          "Search"
+        ],
         "summary": "Buscar invitaciones de juego",
         "description": "",
         "operationId": "get_/search/game-invitations",
@@ -2070,7 +2307,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Texto a buscar en títulos o plataformas"
+            "description": "Texto a buscar en t\u00edtulos o plataformas"
           }
         ],
         "responses": {
@@ -2164,7 +2401,11 @@
       },
       "GameInvitationCreateRequest": {
         "type": "object",
-        "required": ["game_title", "game_platform", "game_date"],
+        "required": [
+          "game_title",
+          "game_platform",
+          "game_date"
+        ],
         "properties": {
           "game_title": {
             "type": "string",
@@ -2334,7 +2575,10 @@
       },
       "ReportCreateRequest": {
         "type": "object",
-        "required": ["reported_id", "reason"],
+        "required": [
+          "reported_id",
+          "reason"
+        ],
         "properties": {
           "reported_id": {
             "type": "integer",
@@ -2390,7 +2634,11 @@
       },
       "UserRegisterRequest": {
         "type": "object",
-        "required": ["name", "email", "password"],
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -2411,7 +2659,10 @@
       },
       "UserLoginRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -2426,11 +2677,13 @@
       },
       "CommentRequest": {
         "type": "object",
-        "required": ["content"],
+        "required": [
+          "content"
+        ],
         "properties": {
           "content": {
             "type": "string",
-            "example": "¡Me encantó este post!"
+            "example": "\u00a1Me encant\u00f3 este post!"
           }
         }
       },
@@ -2451,7 +2704,10 @@
             "items": {
               "type": "string"
             },
-            "example": ["League of Legends", "Valorant"]
+            "example": [
+              "League of Legends",
+              "Valorant"
+            ]
           }
         }
       },
@@ -2468,7 +2724,10 @@
           },
           "theme": {
             "type": "string",
-            "enum": ["light", "dark"],
+            "enum": [
+              "light",
+              "dark"
+            ],
             "example": "dark"
           },
           "language": {
@@ -2485,15 +2744,23 @@
       },
       "PostCreateRequest": {
         "type": "object",
-        "required": ["post_type"],
+        "required": [
+          "post_type"
+        ],
         "properties": {
           "content": {
             "type": "string",
-            "example": "¡Jugamos esta noche a las 9!"
+            "example": "\u00a1Jugamos esta noche a las 9!"
           },
           "post_type": {
             "type": "string",
-            "enum": ["text", "image", "video", "link", "game_invitation"],
+            "enum": [
+              "text",
+              "image",
+              "video",
+              "link",
+              "game_invitation"
+            ],
             "example": "game_invitation"
           },
           "game_title": {
@@ -2519,15 +2786,23 @@
       },
       "PostUpdateRequest": {
         "type": "object",
-        "required": ["post_type"],
+        "required": [
+          "post_type"
+        ],
         "properties": {
           "content": {
             "type": "string",
-            "example": "¡Jugamos esta noche a las 9!"
+            "example": "\u00a1Jugamos esta noche a las 9!"
           },
           "post_type": {
             "type": "string",
-            "enum": ["text", "image", "video", "link", "game_invitation"],
+            "enum": [
+              "text",
+              "image",
+              "video",
+              "link",
+              "game_invitation"
+            ],
             "example": "game_invitation"
           },
           "game_title": {
@@ -2559,15 +2834,23 @@
             "example": "accepted"
           }
         },
-        "required": ["status"]
+        "required": [
+          "status"
+        ]
       },
       "MediaRequest": {
         "type": "object",
-        "required": ["media_type", "media_url"],
+        "required": [
+          "media_type",
+          "media_url"
+        ],
         "properties": {
           "media_type": {
             "type": "string",
-            "enum": ["image", "video"],
+            "enum": [
+              "image",
+              "video"
+            ],
             "example": "image"
           },
           "media_url": {
