@@ -10,9 +10,7 @@
       "post": {
         "summary": "Registro de nuevos usuarios",
         "description": "Crea una nueva cuenta de usuario",
-        "tags": [
-          "Autenticación"
-        ],
+        "tags": ["Autenticación"],
         "requestBody": {
           "required": true,
           "content": {
@@ -38,9 +36,7 @@
     },
     "/auth/login": {
       "post": {
-        "tags": [
-          "Autenticación"
-        ],
+        "tags": ["Autenticación"],
         "summary": "Inicio de sesión",
         "description": "Inicia sesión con email y contraseña",
         "operationId": "post_/auth/login",
@@ -72,9 +68,7 @@
     },
     "/auth/social/google": {
       "post": {
-        "tags": [
-          "Autenticación Social"
-        ],
+        "tags": ["Autenticación Social"],
         "summary": "Inicio de sesión con Google",
         "description": "Inicia sesión o registra un usuario con token de Google",
         "operationId": "post_/auth/social/google",
@@ -96,9 +90,7 @@
     },
     "/auth/social/google/start": {
       "get": {
-        "tags": [
-          "Autenticación Social"
-        ],
+        "tags": ["Autenticación Social"],
         "summary": "Iniciar flujo de autenticación con Google",
         "description": "Redirecciona al usuario a la página de inicio de sesión de Google",
         "operationId": "get_/auth/social/google/start",
@@ -117,9 +109,7 @@
     },
     "/auth/social/google/callback": {
       "get": {
-        "tags": [
-          "Autenticación Social"
-        ],
+        "tags": ["Autenticación Social"],
         "summary": "Callback de autenticación de Google",
         "description": "Endpoint de callback para procesar la respuesta de autenticación de Google",
         "operationId": "get_/auth/social/google/callback",
@@ -141,9 +131,7 @@
     },
     "/auth/social/facebook": {
       "post": {
-        "tags": [
-          "Autenticación Social"
-        ],
+        "tags": ["Autenticación Social"],
         "summary": "Inicio de sesión con Facebook",
         "description": "Inicia sesión o registra un usuario con token de Facebook",
         "operationId": "post_/auth/social/facebook",
@@ -165,9 +153,7 @@
     },
     "/auth/social/facebook/start": {
       "get": {
-        "tags": [
-          "Autenticación Social"
-        ],
+        "tags": ["Autenticación Social"],
         "summary": "Iniciar flujo de autenticación con Facebook",
         "description": "Redirecciona al usuario a la página de inicio de sesión de Facebook",
         "operationId": "get_/auth/social/facebook/start",
@@ -186,9 +172,7 @@
     },
     "/auth/social/facebook/callback": {
       "get": {
-        "tags": [
-          "Autenticación Social"
-        ],
+        "tags": ["Autenticación Social"],
         "summary": "Callback de autenticación de Facebook",
         "description": "Endpoint de callback para procesar la respuesta de autenticación de Facebook",
         "operationId": "get_/auth/social/facebook/callback",
@@ -210,9 +194,7 @@
     },
     "/auth/logout": {
       "post": {
-        "tags": [
-          "Autenticación"
-        ],
+        "tags": ["Autenticación"],
         "summary": "Cierre de sesión",
         "description": "Cierra la sesión del usuario actual",
         "operationId": "post_/auth/logout",
@@ -234,9 +216,7 @@
     },
     "/auth/me": {
       "get": {
-        "tags": [
-          "Usuarios"
-        ],
+        "tags": ["Usuarios"],
         "summary": "Obtener información del usuario actual",
         "description": "Obtiene la información del usuario autenticado",
         "operationId": "get_/auth/me",
@@ -256,9 +236,7 @@
         ]
       },
       "put": {
-        "tags": [
-          "Usuarios"
-        ],
+        "tags": ["Usuarios"],
         "summary": "Actualizar información del usuario actual",
         "description": "Actualiza la información del usuario autenticado",
         "operationId": "put_/auth/me",
@@ -293,9 +271,7 @@
     },
     "/users/{id}": {
       "get": {
-        "tags": [
-          "Usuarios"
-        ],
+        "tags": ["Usuarios"],
         "summary": "Obtener perfil público de un usuario",
         "description": "Obtiene el perfil público de un usuario por su ID",
         "operationId": "get_/users/{id}",
@@ -327,9 +303,7 @@
     },
     "/users/settings": {
       "put": {
-        "tags": [
-          "Usuarios"
-        ],
+        "tags": ["Usuarios"],
         "summary": "Actualizar configuraciones de usuario",
         "description": "Actualiza las configuraciones del usuario actual",
         "operationId": "put_/users/settings",
@@ -364,9 +338,7 @@
     },
     "/users/{id}/profile": {
       "get": {
-        "tags": [
-          "Profile"
-        ],
+        "tags": ["Profile"],
         "summary": "Get user profile",
         "description": "Retrieves the complete profile information of a specified user",
         "operationId": "get_/users/{id}/profile",
@@ -402,9 +374,7 @@
         ]
       },
       "put": {
-        "tags": [
-          "Profile"
-        ],
+        "tags": ["Profile"],
         "summary": "Update user profile",
         "description": "Updates the profile information of the authenticated user",
         "operationId": "put_/users/{id}/profile",
@@ -445,9 +415,7 @@
     },
     "/users/{id}/games": {
       "get": {
-        "tags": [
-          "Games"
-        ],
+        "tags": ["Games"],
         "summary": "Get user's preferred games",
         "description": "Retrieves the list of games preferred by a specified user",
         "operationId": "get_/users/{id}/games",
@@ -485,9 +453,7 @@
     },
     "/users/games": {
       "post": {
-        "tags": [
-          "Games"
-        ],
+        "tags": ["Games"],
         "summary": "Add a preferred game",
         "description": "Adds a game to the authenticated user's preferred games list",
         "operationId": "post_/users/games",
@@ -515,9 +481,7 @@
     },
     "/users/games/{gameId}": {
       "delete": {
-        "tags": [
-          "Games"
-        ],
+        "tags": ["Games"],
         "summary": "Remove a preferred game",
         "description": "Removes a game from the authenticated user's preferred games list",
         "operationId": "delete_/users/games/{gameId}",
@@ -555,9 +519,7 @@
     },
     "/users/{id}/play-times": {
       "get": {
-        "tags": [
-          "Play Times"
-        ],
+        "tags": ["Play Times"],
         "summary": "Get user's play time preferences",
         "description": "Retrieves the play time preferences of a specified user",
         "operationId": "get_/users/{id}/play-times",
@@ -595,9 +557,7 @@
     },
     "/users/play-times": {
       "post": {
-        "tags": [
-          "Play Times"
-        ],
+        "tags": ["Play Times"],
         "summary": "Add a play time preference",
         "description": "Adds a play time preference to the authenticated user",
         "operationId": "post_/users/play-times",
@@ -625,9 +585,7 @@
     },
     "/users/play-times/{timeId}": {
       "delete": {
-        "tags": [
-          "Play Times"
-        ],
+        "tags": ["Play Times"],
         "summary": "Remove a play time preference",
         "description": "Removes a play time preference from the authenticated user",
         "operationId": "delete_/users/play-times/{timeId}",
@@ -662,9 +620,7 @@
     },
     "/posts": {
       "get": {
-        "tags": [
-          "Publicaciones"
-        ],
+        "tags": ["Publicaciones"],
         "summary": "Obtener feed de publicaciones",
         "description": "Obtiene una lista de publicaciones",
         "operationId": "get_/posts",
@@ -713,9 +669,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Publicaciones"
-        ],
+        "tags": ["Publicaciones"],
         "summary": "Crear nueva publicación",
         "description": "Crea una nueva publicación",
         "operationId": "post_/posts",
@@ -750,9 +704,7 @@
     },
     "/posts/{id}": {
       "get": {
-        "tags": [
-          "Publicaciones"
-        ],
+        "tags": ["Publicaciones"],
         "summary": "Obtener publicación específica",
         "description": "Obtiene una publicación por su ID",
         "operationId": "get_/posts/{id}",
@@ -795,9 +747,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Publicaciones"
-        ],
+        "tags": ["Publicaciones"],
         "summary": "Actualizar publicación",
         "description": "Actualiza una publicación existente",
         "operationId": "put_/posts/{id}",
@@ -843,9 +793,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Publicaciones"
-        ],
+        "tags": ["Publicaciones"],
         "summary": "Eliminar publicación",
         "description": "Elimina una publicación existente",
         "operationId": "delete_/posts/{id}",
@@ -890,9 +838,7 @@
     },
     "/posts/{id}/media": {
       "post": {
-        "tags": [
-          "Publicaciones"
-        ],
+        "tags": ["Publicaciones"],
         "summary": "Añadir contenido multimedia a una publicación",
         "description": "Añade contenido multimedia a una publicación existente",
         "operationId": "post_/posts/{id}/media",
@@ -930,9 +876,7 @@
     },
     "/posts/{id}/media/{mediaId}": {
       "delete": {
-        "tags": [
-          "Publicaciones"
-        ],
+        "tags": ["Publicaciones"],
         "summary": "Eliminar contenido multimedia",
         "description": "Elimina contenido multimedia de una publicación existente",
         "operationId": "delete_/posts/{id}/media/{mediaId}",
@@ -976,9 +920,7 @@
     },
     "/social/posts/{id}/like": {
       "post": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Dar like a una publicación",
         "description": "Permite al usuario dar like a una publicación específica",
         "operationId": "post_/social/posts/{id}/like",
@@ -1011,9 +953,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Quitar like de una publicación",
         "description": "Permite al usuario quitar su like de una publicación",
         "operationId": "delete_/social/posts/{id}/like",
@@ -1048,9 +988,7 @@
     },
     "/social/posts/{id}/favorite": {
       "post": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Marcar publicación como favorito",
         "description": "Permite al usuario marcar una publicación como favorita",
         "operationId": "post_/social/posts/{id}/favorite",
@@ -1083,9 +1021,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Quitar publicación de favoritos",
         "description": "Permite al usuario quitar una publicación de sus favoritos",
         "operationId": "delete_/social/posts/{id}/favorite",
@@ -1120,9 +1056,7 @@
     },
     "/social/posts/{id}/comments": {
       "get": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Obtener comentarios de una publicación",
         "description": "Obtiene todos los comentarios de una publicación específica",
         "operationId": "get_/social/posts/{id}/comments",
@@ -1165,9 +1099,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Añadir comentario a una publicación",
         "description": "Permite al usuario añadir un comentario a una publicación",
         "operationId": "post_/social/posts/{id}/comments",
@@ -1213,9 +1145,7 @@
                     "example": "¡Gran publicación!"
                   }
                 },
-                "required": [
-                  "content"
-                ]
+                "required": ["content"]
               }
             }
           }
@@ -1224,9 +1154,7 @@
     },
     "/social/comments/{id}": {
       "put": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Actualizar un comentario",
         "description": "Permite al usuario actualizar su propio comentario",
         "operationId": "put_/social/comments/{id}",
@@ -1272,18 +1200,14 @@
                     "example": "Comentario actualizado"
                   }
                 },
-                "required": [
-                  "content"
-                ]
+                "required": ["content"]
               }
             }
           }
         }
       },
       "delete": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Eliminar un comentario",
         "description": "Permite al usuario eliminar su propio comentario",
         "operationId": "delete_/social/comments/{id}",
@@ -1328,9 +1252,7 @@
     },
     "/social/comments/{id}/reply": {
       "post": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Responder a un comentario",
         "description": "Permite al usuario responder a un comentario existente",
         "operationId": "post_/social/comments/{id}/reply",
@@ -1376,9 +1298,7 @@
                     "example": "Respuesta al comentario"
                   }
                 },
-                "required": [
-                  "content"
-                ]
+                "required": ["content"]
               }
             }
           }
@@ -1387,9 +1307,7 @@
     },
     "/social/comments/{id}/like": {
       "post": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Dar like a un comentario",
         "description": "Permite al usuario dar like a un comentario",
         "operationId": "post_/social/comments/{id}/like",
@@ -1422,9 +1340,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Social Interactions"
-        ],
+        "tags": ["Social Interactions"],
         "summary": "Quitar like de un comentario",
         "description": "Permite al usuario quitar su like de un comentario",
         "operationId": "delete_/social/comments/{id}/like",
@@ -1459,9 +1375,7 @@
     },
     "/matches": {
       "get": {
-        "tags": [
-          "Matches"
-        ],
+        "tags": ["Matches"],
         "summary": "Obtener todos los matches del usuario",
         "description": "Retorna todos los matches del usuario autenticado.",
         "operationId": "get_/matches",
@@ -1483,9 +1397,7 @@
     },
     "/matches/recommendations": {
       "get": {
-        "tags": [
-          "Matches"
-        ],
+        "tags": ["Matches"],
         "summary": "Recomendaciones de matches",
         "description": "Devuelve una lista de usuarios recomendados con su puntaje de compatibilidad.",
         "operationId": "get_/matches/recommendations",
@@ -1504,9 +1416,7 @@
     },
     "/matches/{id}": {
       "get": {
-        "tags": [
-          "Matches"
-        ],
+        "tags": ["Matches"],
         "summary": "Detalle de un match",
         "description": "Obtiene la información de un match específico.",
         "operationId": "get_/matches/{id}",
@@ -1536,9 +1446,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Matches"
-        ],
+        "tags": ["Matches"],
         "summary": "Eliminar match",
         "description": "Elimina un match existente.",
         "operationId": "delete_/matches/{id}",
@@ -1570,9 +1478,7 @@
     },
     "/matches/calculate/{userId}": {
       "post": {
-        "tags": [
-          "Matches"
-        ],
+        "tags": ["Matches"],
         "summary": "Calcular compatibilidad",
         "description": "Calcula la compatibilidad entre el usuario autenticado y otro usuario.",
         "operationId": "post_/matches/calculate/{userId}",
@@ -1607,9 +1513,7 @@
     },
     "/game-invitations": {
       "get": {
-        "tags": [
-          "Game Invitations"
-        ],
+        "tags": ["Game Invitations"],
         "summary": "Obtener todas las invitaciones activas",
         "description": "",
         "operationId": "get_/game-invitations",
@@ -1636,9 +1540,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Game Invitations"
-        ],
+        "tags": ["Game Invitations"],
         "summary": "Crear nueva invitación",
         "description": "",
         "operationId": "post_/game-invitations",
@@ -1667,9 +1569,7 @@
     },
     "/game-invitations/{id}": {
       "get": {
-        "tags": [
-          "Game Invitations"
-        ],
+        "tags": ["Game Invitations"],
         "summary": "Ver detalles de invitación",
         "description": "",
         "operationId": "get_/game-invitations/{id}",
@@ -1709,9 +1609,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Game Invitations"
-        ],
+        "tags": ["Game Invitations"],
         "summary": "Actualizar invitación",
         "description": "",
         "operationId": "put_/game-invitations/{id}",
@@ -1748,9 +1646,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Game Invitations"
-        ],
+        "tags": ["Game Invitations"],
         "summary": "Cancelar invitación",
         "description": "",
         "operationId": "delete_/game-invitations/{id}",
@@ -1792,9 +1688,7 @@
     },
     "/game-invitations/{id}/join": {
       "post": {
-        "tags": [
-          "Game Invitations"
-        ],
+        "tags": ["Game Invitations"],
         "summary": "Unirse a una invitación",
         "description": "",
         "operationId": "post_/game-invitations/{id}/join",
@@ -1823,9 +1717,7 @@
     },
     "/game-invitations/{id}/status": {
       "put": {
-        "tags": [
-          "Game Invitations"
-        ],
+        "tags": ["Game Invitations"],
         "summary": "Actualizar estado de participación",
         "description": "",
         "operationId": "put_/game-invitations/{id}/status",
@@ -1864,9 +1756,7 @@
     },
     "/game-invitations/upcoming": {
       "get": {
-        "tags": [
-          "Game Invitations"
-        ],
+        "tags": ["Game Invitations"],
         "summary": "Ver próximas citas de juego",
         "description": "",
         "operationId": "get_/game-invitations/upcoming",
@@ -1885,9 +1775,7 @@
     },
     "/notifications": {
       "get": {
-        "tags": [
-          "Notifications"
-        ],
+        "tags": ["Notifications"],
         "summary": "Obtener notificaciones del usuario",
         "description": "",
         "operationId": "get_/notifications",
@@ -1906,9 +1794,7 @@
     },
     "/notifications/{id}/read": {
       "put": {
-        "tags": [
-          "Notifications"
-        ],
+        "tags": ["Notifications"],
         "summary": "Marcar notificación como leída",
         "description": "",
         "operationId": "put_/notifications/{id}/read",
@@ -1940,9 +1826,7 @@
     },
     "/notifications/read-all": {
       "put": {
-        "tags": [
-          "Notifications"
-        ],
+        "tags": ["Notifications"],
         "summary": "Marcar todas las notificaciones como leídas",
         "description": "",
         "operationId": "put_/notifications/read-all",
@@ -1961,9 +1845,7 @@
     },
     "/notifications/{id}": {
       "delete": {
-        "tags": [
-          "Notifications"
-        ],
+        "tags": ["Notifications"],
         "summary": "Eliminar notificación",
         "description": "",
         "operationId": "delete_/notifications/{id}",
@@ -1995,9 +1877,7 @@
     },
     "/reports": {
       "post": {
-        "tags": [
-          "Reports"
-        ],
+        "tags": ["Reports"],
         "summary": "Crear reporte",
         "description": "",
         "operationId": "post_/reports",
@@ -2024,9 +1904,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Reports"
-        ],
+        "tags": ["Reports"],
         "summary": "Ver reportes (admin)",
         "description": "",
         "operationId": "get_/reports",
@@ -2058,9 +1936,7 @@
     },
     "/reports/{id}/status": {
       "put": {
-        "tags": [
-          "Reports"
-        ],
+        "tags": ["Reports"],
         "summary": "Actualizar estado de reporte",
         "description": "",
         "operationId": "put_/reports/{id}/status",
@@ -2095,9 +1971,7 @@
     },
     "/search/users": {
       "get": {
-        "tags": [
-          "Search"
-        ],
+        "tags": ["Search"],
         "summary": "Buscar usuarios",
         "description": "",
         "operationId": "get_/search/users",
@@ -2126,9 +2000,7 @@
     },
     "/search/posts": {
       "get": {
-        "tags": [
-          "Search"
-        ],
+        "tags": ["Search"],
         "summary": "Buscar publicaciones",
         "description": "",
         "operationId": "get_/search/posts",
@@ -2157,9 +2029,7 @@
     },
     "/search/games": {
       "get": {
-        "tags": [
-          "Search"
-        ],
+        "tags": ["Search"],
         "summary": "Buscar juegos",
         "description": "",
         "operationId": "get_/search/games",
@@ -2188,9 +2058,7 @@
     },
     "/search/game-invitations": {
       "get": {
-        "tags": [
-          "Search"
-        ],
+        "tags": ["Search"],
         "summary": "Buscar invitaciones de juego",
         "description": "",
         "operationId": "get_/search/game-invitations",
@@ -2296,11 +2164,7 @@
       },
       "GameInvitationCreateRequest": {
         "type": "object",
-        "required": [
-          "game_title",
-          "game_platform",
-          "game_date"
-        ],
+        "required": ["game_title", "game_platform", "game_date"],
         "properties": {
           "game_title": {
             "type": "string",
@@ -2470,10 +2334,7 @@
       },
       "ReportCreateRequest": {
         "type": "object",
-        "required": [
-          "reported_id",
-          "reason"
-        ],
+        "required": ["reported_id", "reason"],
         "properties": {
           "reported_id": {
             "type": "integer",
@@ -2529,11 +2390,7 @@
       },
       "UserRegisterRequest": {
         "type": "object",
-        "required": [
-          "name",
-          "email",
-          "password"
-        ],
+        "required": ["name", "email", "password"],
         "properties": {
           "name": {
             "type": "string",
@@ -2554,10 +2411,7 @@
       },
       "UserLoginRequest": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -2572,9 +2426,7 @@
       },
       "CommentRequest": {
         "type": "object",
-        "required": [
-          "content"
-        ],
+        "required": ["content"],
         "properties": {
           "content": {
             "type": "string",
@@ -2599,10 +2451,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "League of Legends",
-              "Valorant"
-            ]
+            "example": ["League of Legends", "Valorant"]
           }
         }
       },
@@ -2619,10 +2468,7 @@
           },
           "theme": {
             "type": "string",
-            "enum": [
-              "light",
-              "dark"
-            ],
+            "enum": ["light", "dark"],
             "example": "dark"
           },
           "language": {
@@ -2639,9 +2485,7 @@
       },
       "PostCreateRequest": {
         "type": "object",
-        "required": [
-          "post_type"
-        ],
+        "required": ["post_type"],
         "properties": {
           "content": {
             "type": "string",
@@ -2649,13 +2493,7 @@
           },
           "post_type": {
             "type": "string",
-            "enum": [
-              "text",
-              "image",
-              "video",
-              "link",
-              "game_invitation"
-            ],
+            "enum": ["text", "image", "video", "link", "game_invitation"],
             "example": "game_invitation"
           },
           "game_title": {
@@ -2681,9 +2519,7 @@
       },
       "PostUpdateRequest": {
         "type": "object",
-        "required": [
-          "post_type"
-        ],
+        "required": ["post_type"],
         "properties": {
           "content": {
             "type": "string",
@@ -2691,13 +2527,7 @@
           },
           "post_type": {
             "type": "string",
-            "enum": [
-              "text",
-              "image",
-              "video",
-              "link",
-              "game_invitation"
-            ],
+            "enum": ["text", "image", "video", "link", "game_invitation"],
             "example": "game_invitation"
           },
           "game_title": {
@@ -2729,23 +2559,15 @@
             "example": "accepted"
           }
         },
-        "required": [
-          "status"
-        ]
+        "required": ["status"]
       },
       "MediaRequest": {
         "type": "object",
-        "required": [
-          "media_type",
-          "media_url"
-        ],
+        "required": ["media_type", "media_url"],
         "properties": {
           "media_type": {
             "type": "string",
-            "enum": [
-              "image",
-              "video"
-            ],
+            "enum": ["image", "video"],
             "example": "image"
           },
           "media_url": {
@@ -2767,7 +2589,7 @@
   "tags": [],
   "servers": [
     {
-      "url": "http://localhost:3000/api"
+      "url": "https://dmm-shp-shd-2p-production.up.railway.app/api"
     }
   ]
 }

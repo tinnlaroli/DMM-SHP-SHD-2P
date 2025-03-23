@@ -19,14 +19,12 @@ const isProd = process.env.NODE_ENV === 'production';
 // Middlewares
 const corsOptions = {
   origin: [
-    "http://localhost:3000", // Para desarrollo local
-    "https://dmm-shp-shd-2p-production.up.railway.app", // Dominio de producción
-    "https://dmm-shp-shd-2p-production.up.railway.app/api-docs" // Swagger UI
+    "http://localhost:3000", // Para pruebas locales
+    "https://dmm-shp-shd-2p-production.up.railway.app" // Dominio de producción
   ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'], // Puedes agregar más cabeceras si es necesario
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Agregar OPTIONS para pre-vuelo
+  allowedHeaders: ['Content-Type', 'Authorization'], // Asegúrate de permitir las cabeceras necesarias
 };
-
 
 app.use(cors(corsOptions));
 
@@ -37,10 +35,11 @@ app.use(helmet({
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       "img-src": ["'self'", "data:"],
       "script-src": ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
-      "connect-src": ["'self'", "http://localhost:3000", "https://dmm-shp-shd-2p-production.up.railway.app"], // Permitir conexiones al dominio de producción
+      "connect-src": ["'self'", "http://localhost:3000", "https://dmm-shp-shd-2p-production.up.railway.app"], // Permitir conexiones a la API de producción
     }
   }
 }));
+
 
 
 app.use(compression());
