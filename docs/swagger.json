@@ -1,20 +1,28 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.3",
   "info": {
     "title": "API de Tinder -KALEV",
     "description": "API para Tinder gamer",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
-  "basePath": "/api",
-  "schemes": ["http"],
   "paths": {
     "/auth/register": {
       "post": {
         "summary": "Registro de nuevos usuarios",
         "description": "Crea una nueva cuenta de usuario",
-        "tags": ["Autenticación"],
-        "parameters": [],
+        "tags": [
+          "Autenticación"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegisterRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Usuario registrado exitosamente"
@@ -25,19 +33,17 @@
           "409": {
             "description": "El email ya está en uso"
           }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
+        }
       }
     },
     "/auth/login": {
       "post": {
+        "tags": [
+          "Autenticación"
+        ],
         "summary": "Inicio de sesión",
         "description": "Inicia sesión con email y contraseña",
-        "tags": ["Autenticación"],
+        "operationId": "post_/auth/login",
         "parameters": [],
         "responses": {
           "200": {
@@ -51,14 +57,27 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/auth/social/google": {
       "post": {
+        "tags": [
+          "Autenticación Social"
+        ],
         "summary": "Inicio de sesión con Google",
         "description": "Inicia sesión o registra un usuario con token de Google",
-        "tags": ["Autenticación Social"],
+        "operationId": "post_/auth/social/google",
         "parameters": [],
         "responses": {
           "200": {
@@ -77,9 +96,12 @@
     },
     "/auth/social/google/start": {
       "get": {
+        "tags": [
+          "Autenticación Social"
+        ],
         "summary": "Iniciar flujo de autenticación con Google",
         "description": "Redirecciona al usuario a la página de inicio de sesión de Google",
-        "tags": ["Autenticación Social"],
+        "operationId": "get_/auth/social/google/start",
         "parameters": [],
         "responses": {
           "302": {
@@ -95,9 +117,12 @@
     },
     "/auth/social/google/callback": {
       "get": {
+        "tags": [
+          "Autenticación Social"
+        ],
         "summary": "Callback de autenticación de Google",
         "description": "Endpoint de callback para procesar la respuesta de autenticación de Google",
-        "tags": ["Autenticación Social"],
+        "operationId": "get_/auth/social/google/callback",
         "parameters": [],
         "responses": {
           "200": {
@@ -116,9 +141,12 @@
     },
     "/auth/social/facebook": {
       "post": {
+        "tags": [
+          "Autenticación Social"
+        ],
         "summary": "Inicio de sesión con Facebook",
         "description": "Inicia sesión o registra un usuario con token de Facebook",
-        "tags": ["Autenticación Social"],
+        "operationId": "post_/auth/social/facebook",
         "parameters": [],
         "responses": {
           "200": {
@@ -137,9 +165,12 @@
     },
     "/auth/social/facebook/start": {
       "get": {
+        "tags": [
+          "Autenticación Social"
+        ],
         "summary": "Iniciar flujo de autenticación con Facebook",
         "description": "Redirecciona al usuario a la página de inicio de sesión de Facebook",
-        "tags": ["Autenticación Social"],
+        "operationId": "get_/auth/social/facebook/start",
         "parameters": [],
         "responses": {
           "302": {
@@ -155,9 +186,12 @@
     },
     "/auth/social/facebook/callback": {
       "get": {
+        "tags": [
+          "Autenticación Social"
+        ],
         "summary": "Callback de autenticación de Facebook",
         "description": "Endpoint de callback para procesar la respuesta de autenticación de Facebook",
-        "tags": ["Autenticación Social"],
+        "operationId": "get_/auth/social/facebook/callback",
         "parameters": [],
         "responses": {
           "200": {
@@ -176,9 +210,12 @@
     },
     "/auth/logout": {
       "post": {
+        "tags": [
+          "Autenticación"
+        ],
         "summary": "Cierre de sesión",
         "description": "Cierra la sesión del usuario actual",
-        "tags": ["Autenticación"],
+        "operationId": "post_/auth/logout",
         "parameters": [],
         "responses": {
           "200": {
@@ -197,9 +234,12 @@
     },
     "/auth/me": {
       "get": {
+        "tags": [
+          "Usuarios"
+        ],
         "summary": "Obtener información del usuario actual",
         "description": "Obtiene la información del usuario autenticado",
-        "tags": ["Usuarios"],
+        "operationId": "get_/auth/me",
         "parameters": [],
         "responses": {
           "200": {
@@ -216,9 +256,12 @@
         ]
       },
       "put": {
+        "tags": [
+          "Usuarios"
+        ],
         "summary": "Actualizar información del usuario actual",
         "description": "Actualiza la información del usuario autenticado",
-        "tags": ["Usuarios"],
+        "operationId": "put_/auth/me",
         "parameters": [],
         "responses": {
           "200": {
@@ -235,23 +278,36 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/users/{id}": {
       "get": {
+        "tags": [
+          "Usuarios"
+        ],
         "summary": "Obtener perfil público de un usuario",
         "description": "Obtiene el perfil público de un usuario por su ID",
-        "tags": ["Usuarios"],
+        "operationId": "get_/users/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID del usuario",
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID del usuario"
           }
         ],
         "responses": {
@@ -271,9 +327,12 @@
     },
     "/users/settings": {
       "put": {
+        "tags": [
+          "Usuarios"
+        ],
         "summary": "Actualizar configuraciones de usuario",
         "description": "Actualiza las configuraciones del usuario actual",
-        "tags": ["Usuarios"],
+        "operationId": "put_/users/settings",
         "parameters": [],
         "responses": {
           "200": {
@@ -290,23 +349,36 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserSettingsRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/users/{id}/profile": {
       "get": {
+        "tags": [
+          "Profile"
+        ],
         "summary": "Get user profile",
         "description": "Retrieves the complete profile information of a specified user",
-        "tags": ["Profile"],
+        "operationId": "get_/users/{id}/profile",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "User ID",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "User ID"
           }
         ],
         "responses": {
@@ -330,18 +402,21 @@
         ]
       },
       "put": {
+        "tags": [
+          "Profile"
+        ],
         "summary": "Update user profile",
         "description": "Updates the profile information of the authenticated user",
-        "tags": ["Profile"],
+        "operationId": "put_/users/{id}/profile",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "User ID (must match authenticated user's ID)",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "User ID (must match authenticated user's ID)"
           }
         ],
         "responses": {
@@ -370,18 +445,21 @@
     },
     "/users/{id}/games": {
       "get": {
+        "tags": [
+          "Games"
+        ],
         "summary": "Get user's preferred games",
         "description": "Retrieves the list of games preferred by a specified user",
-        "tags": ["Games"],
+        "operationId": "get_/users/{id}/games",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "User ID",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "User ID"
           }
         ],
         "responses": {
@@ -407,9 +485,12 @@
     },
     "/users/games": {
       "post": {
+        "tags": [
+          "Games"
+        ],
         "summary": "Add a preferred game",
         "description": "Adds a game to the authenticated user's preferred games list",
-        "tags": ["Games"],
+        "operationId": "post_/users/games",
         "parameters": [],
         "responses": {
           "200": {
@@ -434,18 +515,21 @@
     },
     "/users/games/{gameId}": {
       "delete": {
+        "tags": [
+          "Games"
+        ],
         "summary": "Remove a preferred game",
         "description": "Removes a game from the authenticated user's preferred games list",
-        "tags": ["Games"],
+        "operationId": "delete_/users/games/{gameId}",
         "parameters": [
           {
             "name": "gameId",
             "in": "path",
             "required": true,
-            "description": "Game title or index in the array",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Game title or index in the array"
           }
         ],
         "responses": {
@@ -471,18 +555,21 @@
     },
     "/users/{id}/play-times": {
       "get": {
+        "tags": [
+          "Play Times"
+        ],
         "summary": "Get user's play time preferences",
         "description": "Retrieves the play time preferences of a specified user",
-        "tags": ["Play Times"],
+        "operationId": "get_/users/{id}/play-times",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "User ID",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "User ID"
           }
         ],
         "responses": {
@@ -508,9 +595,12 @@
     },
     "/users/play-times": {
       "post": {
+        "tags": [
+          "Play Times"
+        ],
         "summary": "Add a play time preference",
         "description": "Adds a play time preference to the authenticated user",
-        "tags": ["Play Times"],
+        "operationId": "post_/users/play-times",
         "parameters": [],
         "responses": {
           "200": {
@@ -535,18 +625,21 @@
     },
     "/users/play-times/{timeId}": {
       "delete": {
+        "tags": [
+          "Play Times"
+        ],
         "summary": "Remove a play time preference",
         "description": "Removes a play time preference from the authenticated user",
-        "tags": ["Play Times"],
+        "operationId": "delete_/users/play-times/{timeId}",
         "parameters": [
           {
             "name": "timeId",
             "in": "path",
             "required": true,
-            "description": "Play time preference ID",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Play time preference ID"
           }
         ],
         "responses": {
@@ -569,27 +662,30 @@
     },
     "/posts": {
       "get": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Obtener feed de publicaciones",
         "description": "Obtiene una lista de publicaciones",
-        "tags": ["Publicaciones"],
+        "operationId": "get_/posts",
         "parameters": [
           {
             "name": "limit",
             "in": "query",
-            "description": "Número de publicaciones a obtener",
             "required": false,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Número de publicaciones a obtener"
           },
           {
             "name": "page",
             "in": "query",
-            "description": "Número de página",
             "required": false,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Número de página"
           }
         ],
         "responses": {
@@ -604,12 +700,25 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreateRequest"
+              }
+            }
+          }
+        }
       },
       "post": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Crear nueva publicación",
         "description": "Crea una nueva publicación",
-        "tags": ["Publicaciones"],
+        "operationId": "post_/posts",
         "parameters": [],
         "responses": {
           "201": {
@@ -626,23 +735,36 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreateRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/posts/{id}": {
       "get": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Obtener publicación específica",
         "description": "Obtiene una publicación por su ID",
-        "tags": ["Publicaciones"],
+        "operationId": "get_/posts/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID de la publicación",
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID de la publicación"
           }
         ],
         "responses": {
@@ -660,21 +782,34 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUpdateRequest"
+              }
+            }
+          }
+        }
       },
       "put": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Actualizar publicación",
         "description": "Actualiza una publicación existente",
-        "tags": ["Publicaciones"],
+        "operationId": "put_/posts/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID de la publicación",
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID de la publicación"
           }
         ],
         "responses": {
@@ -695,21 +830,34 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUpdateRequest"
+              }
+            }
+          }
+        }
       },
       "delete": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Eliminar publicación",
         "description": "Elimina una publicación existente",
-        "tags": ["Publicaciones"],
+        "operationId": "delete_/posts/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID de la publicación",
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID de la publicación"
           }
         ],
         "responses": {
@@ -727,23 +875,36 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUpdateRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/posts/{id}/media": {
       "post": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Añadir contenido multimedia a una publicación",
         "description": "Añade contenido multimedia a una publicación existente",
-        "tags": ["Publicaciones"],
+        "operationId": "post_/posts/{id}/media",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID de la publicación",
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID de la publicación"
           }
         ],
         "responses": {
@@ -769,27 +930,30 @@
     },
     "/posts/{id}/media/{mediaId}": {
       "delete": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Eliminar contenido multimedia",
         "description": "Elimina contenido multimedia de una publicación existente",
-        "tags": ["Publicaciones"],
+        "operationId": "delete_/posts/{id}/media/{mediaId}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID de la publicación",
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID de la publicación"
           },
           {
             "name": "mediaId",
             "in": "path",
-            "description": "ID del contenido multimedia",
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID del contenido multimedia"
           }
         ],
         "responses": {
@@ -812,43 +976,26 @@
     },
     "/social/posts/{id}/like": {
       "post": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Dar like a una publicación",
         "description": "Permite al usuario dar like a una publicación específica",
-        "tags": ["Social Interactions"],
+        "operationId": "post_/social/posts/{id}/like",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID de la publicación"
           }
         ],
         "responses": {
           "201": {
-            "description": "Like añadido correctamente",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Post liked successfully"
-                    },
-                    "data": {
-                      "type": "object"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Like añadido correctamente"
           },
           "401": {
             "description": "No autorizado"
@@ -864,43 +1011,26 @@
         ]
       },
       "delete": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Quitar like de una publicación",
         "description": "Permite al usuario quitar su like de una publicación",
-        "tags": ["Social Interactions"],
+        "operationId": "delete_/social/posts/{id}/like",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID de la publicación"
           }
         ],
         "responses": {
           "200": {
-            "description": "Like eliminado correctamente",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Post unliked successfully"
-                    },
-                    "data": {
-                      "type": "object"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Like eliminado correctamente"
           },
           "401": {
             "description": "No autorizado"
@@ -918,16 +1048,19 @@
     },
     "/social/posts/{id}/favorite": {
       "post": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Marcar publicación como favorito",
         "description": "Permite al usuario marcar una publicación como favorita",
-        "tags": ["Social Interactions"],
+        "operationId": "post_/social/posts/{id}/favorite",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID de la publicación"
           }
@@ -950,16 +1083,19 @@
         ]
       },
       "delete": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Quitar publicación de favoritos",
         "description": "Permite al usuario quitar una publicación de sus favoritos",
-        "tags": ["Social Interactions"],
+        "operationId": "delete_/social/posts/{id}/favorite",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID de la publicación"
           }
@@ -984,46 +1120,26 @@
     },
     "/social/posts/{id}/comments": {
       "get": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Obtener comentarios de una publicación",
         "description": "Obtiene todos los comentarios de una publicación específica",
-        "tags": ["Social Interactions"],
+        "operationId": "get_/social/posts/{id}/comments",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID de la publicación"
           }
         ],
         "responses": {
           "200": {
-            "description": "Lista de comentarios obtenida correctamente",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "count": {
-                      "type": "integer",
-                      "example": 5
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object"
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Lista de comentarios obtenida correctamente"
           },
           "401": {
             "description": "No autorizado"
@@ -1036,36 +1152,34 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentRequest"
+              }
+            }
+          }
+        }
       },
       "post": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Añadir comentario a una publicación",
         "description": "Permite al usuario añadir un comentario a una publicación",
-        "tags": ["Social Interactions"],
+        "operationId": "post_/social/posts/{id}/comments",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID de la publicación"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "string",
-                  "example": "¡Gran publicación!"
-                }
-              },
-              "required": ["content"]
-            }
           }
         ],
         "responses": {
@@ -1086,38 +1200,45 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "example": "¡Gran publicación!"
+                  }
+                },
+                "required": [
+                  "content"
+                ]
+              }
+            }
+          }
+        }
       }
     },
     "/social/comments/{id}": {
       "put": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Actualizar un comentario",
         "description": "Permite al usuario actualizar su propio comentario",
-        "tags": ["Social Interactions"],
+        "operationId": "put_/social/comments/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID del comentario"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "string",
-                  "example": "Comentario actualizado"
-                }
-              },
-              "required": ["content"]
-            }
           }
         ],
         "responses": {
@@ -1138,19 +1259,41 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "example": "Comentario actualizado"
+                  }
+                },
+                "required": [
+                  "content"
+                ]
+              }
+            }
+          }
+        }
       },
       "delete": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Eliminar un comentario",
         "description": "Permite al usuario eliminar su propio comentario",
-        "tags": ["Social Interactions"],
+        "operationId": "delete_/social/comments/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID del comentario"
           }
@@ -1170,38 +1313,36 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/social/comments/{id}/reply": {
       "post": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Responder a un comentario",
         "description": "Permite al usuario responder a un comentario existente",
-        "tags": ["Social Interactions"],
+        "operationId": "post_/social/comments/{id}/reply",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID del comentario"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "string",
-                  "example": "Respuesta al comentario"
-                }
-              },
-              "required": ["content"]
-            }
           }
         ],
         "responses": {
@@ -1222,21 +1363,43 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "example": "Respuesta al comentario"
+                  }
+                },
+                "required": [
+                  "content"
+                ]
+              }
+            }
+          }
+        }
       }
     },
     "/social/comments/{id}/like": {
       "post": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Dar like a un comentario",
         "description": "Permite al usuario dar like a un comentario",
-        "tags": ["Social Interactions"],
+        "operationId": "post_/social/comments/{id}/like",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID del comentario"
           }
@@ -1259,16 +1422,19 @@
         ]
       },
       "delete": {
+        "tags": [
+          "Social Interactions"
+        ],
         "summary": "Quitar like de un comentario",
         "description": "Permite al usuario quitar su like de un comentario",
-        "tags": ["Social Interactions"],
+        "operationId": "delete_/social/comments/{id}/like",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "description": "ID del comentario"
           }
@@ -1293,20 +1459,16 @@
     },
     "/matches": {
       "get": {
+        "tags": [
+          "Matches"
+        ],
         "summary": "Obtener todos los matches del usuario",
         "description": "Retorna todos los matches del usuario autenticado.",
-        "tags": ["Matches"],
+        "operationId": "get_/matches",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Lista de matches",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatchListResponse"
-                }
-              }
-            }
+            "description": "Lista de matches"
           },
           "401": {
             "description": "No autorizado"
@@ -1321,20 +1483,16 @@
     },
     "/matches/recommendations": {
       "get": {
+        "tags": [
+          "Matches"
+        ],
         "summary": "Recomendaciones de matches",
         "description": "Devuelve una lista de usuarios recomendados con su puntaje de compatibilidad.",
-        "tags": ["Matches"],
+        "operationId": "get_/matches/recommendations",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Lista de recomendaciones",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatchRecommendationList"
-                }
-              }
-            }
+            "description": "Lista de recomendaciones"
           }
         },
         "security": [
@@ -1346,29 +1504,26 @@
     },
     "/matches/{id}": {
       "get": {
+        "tags": [
+          "Matches"
+        ],
         "summary": "Detalle de un match",
         "description": "Obtiene la información de un match específico.",
-        "tags": ["Matches"],
+        "operationId": "get_/matches/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
-            }
+              "type": "string"
+            },
+            "description": ""
           }
         ],
         "responses": {
           "200": {
-            "description": "Match encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatchResponse"
-                }
-              }
-            }
+            "description": "Match encontrado"
           },
           "404": {
             "description": "Match no encontrado"
@@ -1381,29 +1536,26 @@
         ]
       },
       "delete": {
+        "tags": [
+          "Matches"
+        ],
         "summary": "Eliminar match",
         "description": "Elimina un match existente.",
-        "tags": ["Matches"],
+        "operationId": "delete_/matches/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
-            }
+              "type": "string"
+            },
+            "description": ""
           }
         ],
         "responses": {
           "200": {
-            "description": "Match eliminado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              }
-            }
+            "description": "Match eliminado"
           },
           "404": {
             "description": "Match no encontrado"
@@ -1418,29 +1570,26 @@
     },
     "/matches/calculate/{userId}": {
       "post": {
+        "tags": [
+          "Matches"
+        ],
         "summary": "Calcular compatibilidad",
         "description": "Calcula la compatibilidad entre el usuario autenticado y otro usuario.",
-        "tags": ["Matches"],
+        "operationId": "post_/matches/calculate/{userId}",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
-            }
+              "type": "string"
+            },
+            "description": ""
           }
         ],
         "responses": {
           "200": {
-            "description": "Compatibilidad calculada",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatchScoreResponse"
-                }
-              }
-            }
+            "description": "Compatibilidad calculada"
           },
           "400": {
             "description": "ID inválido"
@@ -1458,25 +1607,23 @@
     },
     "/game-invitations": {
       "get": {
+        "tags": [
+          "Game Invitations"
+        ],
         "summary": "Obtener todas las invitaciones activas",
-        "tags": ["Game Invitations"],
+        "description": "",
+        "operationId": "get_/game-invitations",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "Lista de invitaciones activas",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameInvitationListResponse"
-                }
-              }
-            }
+            "description": "Lista de invitaciones activas"
           }
         },
-        "security": [{ "Bearer": [] }]
-      },
-      "post": {
-        "summary": "Crear nueva invitación",
-        "tags": ["Game Invitations"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -1486,58 +1633,68 @@
               }
             }
           }
-        },
+        }
+      },
+      "post": {
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Crear nueva invitación",
+        "description": "",
+        "operationId": "post_/game-invitations",
+        "parameters": [],
         "responses": {
           "201": {
-            "description": "Invitación creada",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameInvitation"
-                }
+            "description": "Invitación creada"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameInvitationCreateRequest"
               }
             }
           }
-        },
-        "security": [{ "Bearer": [] }]
+        }
       }
     },
     "/game-invitations/{id}": {
       "get": {
+        "tags": [
+          "Game Invitations"
+        ],
         "summary": "Ver detalles de invitación",
-        "tags": ["Game Invitations"],
+        "description": "",
+        "operationId": "get_/game-invitations/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "integer" }
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
           }
         ],
         "responses": {
           "200": {
-            "description": "Detalle de invitación",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameInvitation"
-                }
-              }
-            }
+            "description": "Detalle de invitación"
           },
-          "404": { "description": "No encontrada" }
+          "404": {
+            "description": "No encontrada"
+          }
         },
-        "security": [{ "Bearer": [] }]
-      },
-      "put": {
-        "summary": "Actualizar invitación",
-        "tags": ["Game Invitations"],
-        "parameters": [
+        "security": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer" }
+            "Bearer": []
           }
         ],
         "requestBody": {
@@ -1549,76 +1706,34 @@
               }
             }
           }
-        },
+        }
+      },
+      "put": {
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Actualizar invitación",
+        "description": "",
+        "operationId": "put_/game-invitations/{id}",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Invitación actualizada",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameInvitation"
-                }
-              }
-            }
+            "description": "Invitación actualizada"
           }
         },
-        "security": [{ "Bearer": [] }]
-      },
-      "delete": {
-        "summary": "Cancelar invitación",
-        "tags": ["Game Invitations"],
-        "parameters": [
+        "security": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer" }
-          }
-        ],
-        "responses": {
-          "200": { "description": "Invitación cancelada" },
-          "403": { "description": "No autorizado" }
-        },
-        "security": [{ "Bearer": [] }]
-      }
-    },
-    "/game-invitations/{id}/join": {
-      "post": {
-        "summary": "Unirse a una invitación",
-        "tags": ["Game Invitations"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer" }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Unido a la invitación",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameInvitationParticipant"
-                }
-              }
-            }
-          }
-        },
-        "security": [{ "Bearer": [] }]
-      }
-    },
-    "/game-invitations/{id}/status": {
-      "put": {
-        "summary": "Actualizar estado de participación",
-        "tags": ["Game Invitations"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer" }
+            "Bearer": []
           }
         ],
         "requestBody": {
@@ -1626,139 +1741,277 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "enum": ["accepted", "declined"]
-                  }
-                },
-                "required": ["status"]
+                "$ref": "#/components/schemas/GameInvitationUpdateRequest"
               }
             }
           }
-        },
+        }
+      },
+      "delete": {
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Cancelar invitación",
+        "description": "",
+        "operationId": "delete_/game-invitations/{id}",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Estado actualizado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameInvitationParticipant"
-                }
+            "description": "Invitación cancelada"
+          },
+          "403": {
+            "description": "No autorizado"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameInvitationUpdateRequest"
               }
             }
           }
+        }
+      }
+    },
+    "/game-invitations/{id}/join": {
+      "post": {
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Unirse a una invitación",
+        "description": "",
+        "operationId": "post_/game-invitations/{id}/join",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Unido a la invitación"
+          }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/game-invitations/{id}/status": {
+      "put": {
+        "tags": [
+          "Game Invitations"
+        ],
+        "summary": "Actualizar estado de participación",
+        "description": "",
+        "operationId": "put_/game-invitations/{id}/status",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estado actualizado"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameInvitationParticipantStatusRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/game-invitations/upcoming": {
       "get": {
+        "tags": [
+          "Game Invitations"
+        ],
         "summary": "Ver próximas citas de juego",
-        "tags": ["Game Invitations"],
+        "description": "",
+        "operationId": "get_/game-invitations/upcoming",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "Lista de próximas invitaciones",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameInvitationListResponse"
-                }
-              }
-            }
+            "description": "Lista de próximas invitaciones"
           }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/notifications": {
       "get": {
+        "tags": [
+          "Notifications"
+        ],
         "summary": "Obtener notificaciones del usuario",
-        "tags": ["Notifications"],
+        "description": "",
+        "operationId": "get_/notifications",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "Lista de notificaciones",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotificationListResponse"
-                }
-              }
-            }
+            "description": "Lista de notificaciones"
           }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/notifications/{id}/read": {
       "put": {
+        "tags": [
+          "Notifications"
+        ],
         "summary": "Marcar notificación como leída",
-        "tags": ["Notifications"],
+        "description": "",
+        "operationId": "put_/notifications/{id}/read",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "integer" }
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
           }
         ],
         "responses": {
           "200": {
-            "description": "Notificación marcada como leída",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Notification" }
-              }
-            }
+            "description": "Notificación marcada como leída"
           },
-          "404": { "description": "Notificación no encontrada" }
+          "404": {
+            "description": "Notificación no encontrada"
+          }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/notifications/read-all": {
       "put": {
+        "tags": [
+          "Notifications"
+        ],
         "summary": "Marcar todas las notificaciones como leídas",
-        "tags": ["Notifications"],
+        "description": "",
+        "operationId": "put_/notifications/read-all",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "Todas las notificaciones marcadas como leídas",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotificationListResponse"
-                }
-              }
-            }
+            "description": "Todas las notificaciones marcadas como leídas"
           }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/notifications/{id}": {
       "delete": {
+        "tags": [
+          "Notifications"
+        ],
         "summary": "Eliminar notificación",
-        "tags": ["Notifications"],
+        "description": "",
+        "operationId": "delete_/notifications/{id}",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "integer" }
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
           }
         ],
         "responses": {
-          "200": { "description": "Notificación eliminada correctamente" },
-          "404": { "description": "Notificación no encontrada" }
+          "200": {
+            "description": "Notificación eliminada correctamente"
+          },
+          "404": {
+            "description": "Notificación no encontrada"
+          }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/reports": {
       "post": {
+        "tags": [
+          "Reports"
+        ],
         "summary": "Crear reporte",
-        "tags": ["Reports"],
+        "description": "",
+        "operationId": "post_/reports",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Reporte creado"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -1768,50 +2021,27 @@
               }
             }
           }
-        },
-        "responses": {
-          "201": {
-            "description": "Reporte creado",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Report" }
-              }
-            }
-          }
-        },
-        "security": [{ "Bearer": [] }]
+        }
       },
       "get": {
+        "tags": [
+          "Reports"
+        ],
         "summary": "Ver reportes (admin)",
-        "tags": ["Reports"],
+        "description": "",
+        "operationId": "get_/reports",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "Lista de reportes",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ReportListResponse"
-                }
-              }
-            }
+            "description": "Lista de reportes"
           },
           "403": {
             "description": "No autorizado"
           }
         },
-        "security": [{ "Bearer": [] }]
-      }
-    },
-    "/reports/{id}/status": {
-      "put": {
-        "summary": "Actualizar estado de reporte",
-        "tags": ["Reports"],
-        "parameters": [
+        "security": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer" }
+            "Bearer": []
           }
         ],
         "requestBody": {
@@ -1819,909 +2049,725 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "enum": ["pending", "reviewed", "banned"]
-                  }
-                },
-                "required": ["status"]
+                "$ref": "#/components/schemas/ReportCreateRequest"
               }
             }
           }
-        },
+        }
+      }
+    },
+    "/reports/{id}/status": {
+      "put": {
+        "tags": [
+          "Reports"
+        ],
+        "summary": "Actualizar estado de reporte",
+        "description": "",
+        "operationId": "put_/reports/{id}/status",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Estado actualizado",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Report" }
-              }
-            }
+            "description": "Estado actualizado"
           },
-          "403": { "description": "No autorizado" },
-          "404": { "description": "Reporte no encontrado" }
+          "403": {
+            "description": "No autorizado"
+          },
+          "404": {
+            "description": "Reporte no encontrado"
+          }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/search/users": {
       "get": {
+        "tags": [
+          "Search"
+        ],
         "summary": "Buscar usuarios",
-        "tags": ["Search"],
+        "description": "",
+        "operationId": "get_/search/users",
         "parameters": [
           {
             "name": "q",
             "in": "query",
             "required": false,
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Texto a buscar en nombres de usuario"
           }
         ],
         "responses": {
           "200": {
-            "description": "Lista de usuarios encontrados",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSearchResponse"
-                }
-              }
-            }
+            "description": "Lista de usuarios encontrados"
           }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/search/posts": {
       "get": {
+        "tags": [
+          "Search"
+        ],
         "summary": "Buscar publicaciones",
-        "tags": ["Search"],
+        "description": "",
+        "operationId": "get_/search/posts",
         "parameters": [
           {
             "name": "q",
             "in": "query",
             "required": false,
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Texto a buscar en contenido o títulos de juegos"
           }
         ],
         "responses": {
           "200": {
-            "description": "Lista de publicaciones encontradas",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": { "type": "boolean" },
-                    "data": {
-                      "type": "array",
-                      "items": { "$ref": "#/components/schemas/Post" }
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Lista de publicaciones encontradas"
           }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/search/games": {
       "get": {
+        "tags": [
+          "Search"
+        ],
         "summary": "Buscar juegos",
-        "tags": ["Search"],
+        "description": "",
+        "operationId": "get_/search/games",
         "parameters": [
           {
             "name": "q",
             "in": "query",
             "required": false,
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Texto a buscar en juegos populares o preferencias"
           }
         ],
         "responses": {
           "200": {
-            "description": "Lista de juegos encontrados",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": { "type": "boolean" },
-                    "data": {
-                      "type": "array",
-                      "items": { "type": "string" }
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Lista de juegos encontrados"
           }
         },
-        "security": [{ "Bearer": [] }]
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/search/game-invitations": {
       "get": {
+        "tags": [
+          "Search"
+        ],
         "summary": "Buscar invitaciones de juego",
-        "tags": ["Search"],
+        "description": "",
+        "operationId": "get_/search/game-invitations",
         "parameters": [
           {
             "name": "q",
             "in": "query",
             "required": false,
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Texto a buscar en títulos o plataformas"
           }
         ],
         "responses": {
           "200": {
-            "description": "Lista de invitaciones de juego encontradas",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": { "type": "boolean" },
-                    "data": {
-                      "type": "array",
-                      "items": { "$ref": "#/components/schemas/GameInvitation" }
-                    }
-                  }
+            "description": "Lista de invitaciones de juego encontradas"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MatchListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "MatchRecommendationList": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object"
+                },
+                "score": {
+                  "type": "number"
                 }
               }
             }
           }
-        },
-        "security": [{ "Bearer": [] }]
-      }
-    }
-  },
-  "definitions": {
-    "RegisterRequest": {
-      "type": "object",
-      "required": ["email", "password", "name"],
-      "properties": {
-        "email": {
-          "type": "string",
-          "format": "email",
-          "example": "usuario@ejemplo.com"
-        },
-        "password": {
-          "type": "string",
-          "format": "password",
-          "example": "contraseña123"
-        },
-        "name": {
-          "type": "string",
-          "example": "Juan Pérez"
-        }
-      }
-    },
-    "LoginRequest": {
-      "type": "object",
-      "required": ["email", "password"],
-      "properties": {
-        "email": {
-          "type": "string",
-          "format": "email",
-          "example": "usuario@ejemplo.com"
-        },
-        "password": {
-          "type": "string",
-          "format": "password",
-          "example": "contraseña123"
-        }
-      }
-    },
-    "SocialLoginRequest": {
-      "type": "object",
-      "required": ["token"],
-      "properties": {
-        "token": {
-          "type": "string",
-          "example": "ya29.a0AfH6SMB6fHcWXzSDX..."
-        }
-      }
-    },
-    "AuthResponse": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string",
-          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-        },
-        "user": {
-          "$ref": "#/components/schemas/UserResponse"
-        }
-      }
-    },
-    "UserResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "5f7d9e8f3c2a1b0e1d5c4b3a"
-        },
-        "email": {
-          "type": "string",
-          "example": "usuario@ejemplo.com"
-        },
-        "name": {
-          "type": "string",
-          "example": "Juan Pérez"
-        },
-        "avatar": {
-          "type": "string",
-          "example": "https://ejemplo.com/imagen.jpg"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2023-01-01T12:00:00Z"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2023-01-01T12:00:00Z"
-        }
-      }
-    },
-    "PublicUserResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "5f7d9e8f3c2a1b0e1d5c4b3a"
-        },
-        "name": {
-          "type": "string",
-          "example": "Juan Pérez"
-        },
-        "avatar": {
-          "type": "string",
-          "example": "https://ejemplo.com/imagen.jpg"
-        }
-      }
-    },
-    "UserUpdateRequest": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "example": "Juan Pérez"
-        },
-        "avatar": {
-          "type": "string",
-          "example": "https://ejemplo.com/imagen.jpg"
-        },
-        "currentPassword": {
-          "type": "string",
-          "example": "contraseñaActual123"
-        },
-        "newPassword": {
-          "type": "string",
-          "example": "nuevaContraseña123"
-        }
-      }
-    },
-    "UserSettingsRequest": {
-      "type": "object",
-      "properties": {
-        "language": {
-          "type": "string",
-          "example": "es"
-        },
-        "notifications": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "boolean",
-              "example": true
-            },
-            "push": {
-              "type": "boolean",
-              "example": false
-            }
-          }
-        },
-        "theme": {
-          "type": "string",
-          "enum": ["light", "dark", "system"],
-          "example": "dark"
-        }
-      }
-    },
-    "UserSettingsResponse": {
-      "type": "object",
-      "properties": {
-        "language": {
-          "type": "string",
-          "example": "es"
-        },
-        "notifications": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "boolean",
-              "example": true
-            },
-            "push": {
-              "type": "boolean",
-              "example": false
-            }
-          }
-        },
-        "theme": {
-          "type": "string",
-          "example": "dark"
-        }
-      }
-    },
-    "ErrorResponse": {
-      "type": "object",
-      "properties": {
-        "error": {
-          "type": "object",
-          "properties": {
-            "message": {
-              "type": "string",
-              "example": "Error del servidor"
-            },
-            "status": {
-              "type": "integer",
-              "example": 500
-            }
-          }
-        }
-      }
-    },
-    "UserProfile": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "description": "User ID"
-        },
-        "name": {
-          "type": "string",
-          "description": "User's display name"
-        },
-        "email": {
-          "type": "string",
-          "description": "User's email (only visible to profile owner)"
-        },
-        "profile_picture": {
-          "type": "string",
-          "description": "URL to user's profile picture"
-        },
-        "bio": {
-          "type": "string",
-          "description": "User's biography"
-        },
-        "game_preferences": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "List of user's preferred games"
-        },
-        "play_times": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/PlayTime"
-          },
-          "description": "User's preferred play times"
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Account creation timestamp"
-        }
-      }
-    },
-    "ProfileUpdate": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "User's display name"
-        },
-        "bio": {
-          "type": "string",
-          "description": "User's biography"
-        },
-        "profile_picture": {
-          "type": "string",
-          "description": "URL to user's profile picture"
-        }
-      }
-    },
-    "UserGames": {
-      "type": "object",
-      "properties": {
-        "user_id": {
-          "type": "integer",
-          "description": "User ID"
-        },
-        "game_preferences": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "List of user's preferred games"
-        }
-      }
-    },
-    "GameAdd": {
-      "type": "object",
-      "properties": {
-        "game": {
-          "type": "string",
-          "description": "Game title to add to preferences"
         }
       },
-      "required": ["game"]
-    },
-    "UserPlayTimes": {
-      "type": "object",
-      "properties": {
-        "user_id": {
-          "type": "integer",
-          "description": "User ID"
-        },
-        "play_times": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/PlayTime"
+      "MatchResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
           },
-          "description": "User's preferred play times"
-        }
-      }
-    },
-    "PlayTime": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "description": "Play time preference ID"
-        },
-        "name": {
-          "type": "string",
-          "description": "Play time name (morning, afternoon, evening, etc.)"
-        }
-      }
-    },
-    "PlayTimeAdd": {
-      "type": "object",
-      "properties": {
-        "play_time_id": {
-          "type": "integer",
-          "description": "ID of the play time preference to add"
+          "data": {
+            "type": "object"
+          }
         }
       },
-      "required": ["play_time_id"]
-    },
-    "PostListResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "count": {
-          "type": "integer"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/Post"
-          }
-        }
-      }
-    },
-    "PostResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "data": {
-          "$ref": "#/components/schemas/Post"
-        }
-      }
-    },
-    "CreatePostRequest": {
-      "type": "object",
-      "properties": {
-        "content": {
-          "type": "string"
-        },
-        "post_type": {
-          "type": "string",
-          "enum": ["text", "image", "video", "link", "game_invitation"]
-        },
-        "game_title": {
-          "type": "string"
-        },
-        "game_platform": {
-          "type": "string"
-        },
-        "game_date": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "max_participants": {
-          "type": "integer"
-        }
-      }
-    },
-    "UpdatePostRequest": {
-      "type": "object",
-      "properties": {
-        "content": {
-          "type": "string"
-        },
-        "post_type": {
-          "type": "string",
-          "enum": ["text", "image", "video", "link", "game_invitation"]
-        },
-        "game_title": {
-          "type": "string"
-        },
-        "game_platform": {
-          "type": "string"
-        },
-        "game_date": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "max_participants": {
-          "type": "integer"
-        }
-      }
-    },
-    "AddMediaRequest": {
-      "type": "object",
-      "properties": {
-        "media_url": {
-          "type": "string"
-        },
-        "media_type": {
-          "type": "string",
-          "enum": ["image", "video"]
-        }
-      }
-    },
-    "MediaResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "data": {
-          "$ref": "#/components/schemas/Media"
-        }
-      }
-    },
-    "SuccessResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "Post": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "content": {
-          "type": "string"
-        },
-        "post_type": {
-          "type": "string",
-          "enum": ["text", "image", "video", "link", "game_invitation"]
-        },
-        "game_title": {
-          "type": "string"
-        },
-        "game_platform": {
-          "type": "string"
-        },
-        "game_date": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "max_participants": {
-          "type": "integer"
-        },
-        "user_id": {
-          "type": "string"
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "Media": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "media_url": {
-          "type": "string"
-        },
-        "media_type": {
-          "type": "string",
-          "enum": ["image", "video"]
-        },
-        "post_id": {
-          "type": "string"
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "Match": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "user_one": {
-          "type": "integer"
-        },
-        "user_two": {
-          "type": "integer"
-        },
-        "match_score": {
-          "type": "number",
-          "format": "float"
-        },
-        "game_compatibility_score": {
-          "type": "number",
-          "format": "float"
-        },
-        "schedule_compatibility_score": {
-          "type": "number",
-          "format": "float"
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "MatchResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "data": {
-          "$ref": "#/components/schemas/Match"
-        }
-      }
-    },
-    "MatchListResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "count": {
-          "type": "integer"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/Match"
-          }
-        }
-      }
-    },
-    "MatchScoreResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "score": {
-              "type": "number",
-              "format": "float"
+      "MatchScoreResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number"
+              }
             }
           }
         }
-      }
-    },
-    "MatchRecommendation": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "$ref": "#/components/schemas/PublicUserResponse"
-        },
-        "score": {
-          "type": "number",
-          "format": "float"
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
         }
-      }
-    },
-    "MatchRecommendationList": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
+      },
+      "GameInvitationCreateRequest": {
+        "type": "object",
+        "required": [
+          "game_title",
+          "game_platform",
+          "game_date"
+        ],
+        "properties": {
+          "game_title": {
+            "type": "string",
+            "example": "League of Legends"
+          },
+          "game_platform": {
+            "type": "string",
+            "example": "PC"
+          },
+          "game_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-03-22T20:00:00Z"
+          },
+          "max_participants": {
+            "type": "integer",
+            "example": 5
+          }
+        }
+      },
+      "GameInvitationUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "game_title": {
+            "type": "string",
+            "example": "Valorant"
+          },
+          "game_platform": {
+            "type": "string",
+            "example": "PC"
+          },
+          "game_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-03-23T18:30:00Z"
+          },
+          "status": {
+            "type": "string",
+            "example": "active"
+          },
+          "max_participants": {
+            "type": "integer",
+            "example": 4
+          }
+        }
+      },
+      "GameInvitation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "game_title": {
+            "type": "string"
+          },
+          "game_platform": {
+            "type": "string"
+          },
+          "game_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string"
+          },
+          "max_participants": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GameInvitationParticipant": {
+        "type": "object",
+        "properties": {
+          "invitation_id": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "GameInvitationListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GameInvitation"
+            }
+          }
+        }
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "reference_id": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "seen": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NotificationListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            }
+          }
+        }
+      },
+      "Report": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "reporter_id": {
+            "type": "integer"
+          },
+          "reported_id": {
+            "type": "integer"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ReportCreateRequest": {
+        "type": "object",
+        "required": [
+          "reported_id",
+          "reason"
+        ],
+        "properties": {
+          "reported_id": {
+            "type": "integer",
+            "example": 123
+          },
+          "reason": {
+            "type": "string",
+            "example": "Comportamiento inapropiado en el chat"
+          }
+        }
+      },
+      "ReportListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Report"
+            }
+          }
+        }
+      },
+      "UserSearchResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "profile_picture": {
+                  "type": "string"
+                },
+                "bio": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UserRegisterRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "example": "Juan Gamer"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "juan@example.com"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6,
+            "example": "SuperSecret123"
+          }
+        }
+      },
+      "UserLoginRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "juan@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "SuperSecret123"
+          }
+        }
+      },
+      "CommentRequest": {
+        "type": "object",
+        "required": [
+          "content"
+        ],
+        "properties": {
+          "content": {
+            "type": "string",
+            "example": "¡Me encantó este post!"
+          }
+        }
+      },
+      "UserUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "example": "NuevoNombre"
+          },
+          "bio": {
+            "type": "string",
+            "example": "Apasionado de los juegos de estrategia"
+          },
+          "game_preferences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "League of Legends",
+              "Valorant"
+            ]
+          }
+        }
+      },
+      "UserSettingsRequest": {
+        "type": "object",
+        "properties": {
+          "private_profile": {
+            "type": "boolean",
+            "example": false
+          },
+          "notifications_enabled": {
+            "type": "boolean",
+            "example": true
+          },
+          "theme": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark"
+            ],
+            "example": "dark"
+          },
+          "language": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 10,
+            "example": "es"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "America/Bogota"
+          }
+        }
+      },
+      "PostCreateRequest": {
+        "type": "object",
+        "required": [
+          "post_type"
+        ],
+        "properties": {
+          "content": {
+            "type": "string",
+            "example": "¡Jugamos esta noche a las 9!"
+          },
+          "post_type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "video",
+              "link",
+              "game_invitation"
+            ],
+            "example": "game_invitation"
+          },
+          "game_title": {
+            "type": "string",
+            "example": "Fortnite"
+          },
+          "game_platform": {
+            "type": "string",
+            "example": "PlayStation"
+          },
+          "game_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-04-01T21:00:00Z"
+          },
+          "max_participants": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 100,
+            "example": 4
+          }
+        }
+      },
+      "PostUpdateRequest": {
+        "type": "object",
+        "required": [
+          "post_type"
+        ],
+        "properties": {
+          "content": {
+            "type": "string",
+            "example": "¡Jugamos esta noche a las 9!"
+          },
+          "post_type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "video",
+              "link",
+              "game_invitation"
+            ],
+            "example": "game_invitation"
+          },
+          "game_title": {
+            "type": "string",
+            "example": "Fortnite"
+          },
+          "game_platform": {
+            "type": "string",
+            "example": "PlayStation"
+          },
+          "game_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-04-01T21:00:00Z"
+          },
+          "max_participants": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 100,
+            "example": 4
+          }
+        }
+      },
+      "GameInvitationParticipantStatusRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "accepted"
+          }
         },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/MatchRecommendation"
+        "required": [
+          "status"
+        ]
+      },
+      "MediaRequest": {
+        "type": "object",
+        "required": [
+          "media_type",
+          "media_url"
+        ],
+        "properties": {
+          "media_type": {
+            "type": "string",
+            "enum": [
+              "image",
+              "video"
+            ],
+            "example": "image"
+          },
+          "media_url": {
+            "type": "string",
+            "format": "url",
+            "example": "https://cdn.example.com/image.png"
           }
         }
       }
     },
-    "GameInvitation": {
-      "type": "object",
-      "properties": {
-        "id": { "type": "integer" },
-        "post_id": { "type": "integer" },
-        "host_id": { "type": "integer" },
-        "game_title": { "type": "string" },
-        "game_platform": { "type": "string" },
-        "game_date": { "type": "string", "format": "date-time" },
-        "max_participants": { "type": "integer" },
-        "status": {
-          "type": "string",
-          "enum": ["open", "full", "cancelled", "completed"]
-        },
-        "created_at": { "type": "string", "format": "date-time" }
-      }
-    },
-    "GameInvitationCreateRequest": {
-      "type": "object",
-      "required": ["post_id", "game_title", "game_platform", "game_date"],
-      "properties": {
-        "post_id": { "type": "integer" },
-        "game_title": { "type": "string" },
-        "game_platform": { "type": "string" },
-        "game_date": { "type": "string", "format": "date-time" },
-        "max_participants": { "type": "integer" }
-      }
-    },
-    "GameInvitationUpdateRequest": {
-      "type": "object",
-      "properties": {
-        "game_title": { "type": "string" },
-        "game_platform": { "type": "string" },
-        "game_date": { "type": "string", "format": "date-time" },
-        "max_participants": { "type": "integer" },
-        "status": {
-          "type": "string",
-          "enum": ["open", "full", "cancelled", "completed"]
-        }
-      }
-    },
-    "GameInvitationListResponse": {
-      "type": "object",
-      "properties": {
-        "success": { "type": "boolean" },
-        "data": {
-          "type": "array",
-          "items": { "$ref": "#/components/schemas/GameInvitation" }
-        }
-      }
-    },
-    "GameInvitationParticipant": {
-      "type": "object",
-      "properties": {
-        "id": { "type": "integer" },
-        "invitation_id": { "type": "integer" },
-        "user_id": { "type": "integer" },
-        "status": {
-          "type": "string",
-          "enum": ["pending", "accepted", "declined"]
-        },
-        "created_at": { "type": "string", "format": "date-time" }
-      }
-    },
-    "Notification": {
-      "type": "object",
-      "properties": {
-        "id": { "type": "integer" },
-        "user_id": { "type": "integer" },
-        "type": {
-          "type": "string",
-          "enum": ["like", "comment", "match", "game_invitation"]
-        },
-        "reference_id": { "type": "integer" },
-        "message": { "type": "string" },
-        "seen": { "type": "boolean" },
-        "created_at": { "type": "string", "format": "date-time" }
-      }
-    },
-    "NotificationListResponse": {
-      "type": "object",
-      "properties": {
-        "success": { "type": "boolean" },
-        "data": {
-          "type": "array",
-          "items": { "$ref": "#/components/schemas/Notification" }
-        }
-      }
-    },
-    "Report": {
-      "type": "object",
-      "properties": {
-        "id": { "type": "integer" },
-        "reporter_id": { "type": "integer" },
-        "reported_id": { "type": "integer" },
-        "reason": { "type": "string" },
-        "status": {
-          "type": "string",
-          "enum": ["pending", "reviewed", "banned"]
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "reporter_name": { "type": "string" },
-        "reported_name": { "type": "string" }
-      }
-    },
-    "ReportCreateRequest": {
-      "type": "object",
-      "required": ["reported_id", "reason"],
-      "properties": {
-        "reported_id": { "type": "integer" },
-        "reason": { "type": "string" }
-      }
-    },
-    "ReportListResponse": {
-      "type": "object",
-      "properties": {
-        "success": { "type": "boolean" },
-        "data": {
-          "type": "array",
-          "items": { "$ref": "#/components/schemas/Report" }
-        }
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
       }
     }
   },
-  "securityDefinitions": {
-    "Bearer": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "description": "Token JWT: Bearer {token}"
-    }
-  },
-  "security": [
+  "tags": [],
+  "servers": [
     {
-      "Bearer": []
+      "url": "http://localhost:3000/api"
     }
-  ],
-  "tags": []
+  ]
 }

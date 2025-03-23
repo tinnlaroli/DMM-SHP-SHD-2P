@@ -14,11 +14,13 @@ const routes = require('./routes');
 // Inicializar la aplicación
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isProd = process.env.NODE_ENV === 'production';
 
 // Middlewares
 app.use(cors());
+
 app.use(helmet({
-  contentSecurityPolicy: {
+  contentSecurityPolicy: isProd ? undefined : {
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       "img-src": ["'self'", "data:"],
@@ -28,9 +30,8 @@ app.use(helmet({
   }
 }));
 
-
 app.use(compression());
-app.use(morgan('dev'));
+app.use(morgan(isProd ? 'combined' : 'dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
@@ -48,17 +49,19 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
 // Rutas
 app.use('/api', routes);
 
-// Manejo de errores
+// Ruta no encontrada
 app.use((req, res, next) => {
   const error = new Error('Ruta no encontrada');
   error.status = 404;
   next(error);
 });
 
+// Manejo general de errores
 app.use((err, req, res, next) => {
   const status = err.status || 500;
   const message = err.message || 'Error del servidor';
   res.status(status).json({
+    success: false,
     error: {
       message,
       status
@@ -69,7 +72,9 @@ app.use((err, req, res, next) => {
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
-  console.log(`Documentación de la API disponible en http://localhost:${PORT}/api-docs`);
+  if (!isProd) {
+    console.log(`Documentación disponible en http://localhost:${PORT}/api-docs`);
+  }
 });
 
 module.exports = app;
