@@ -1673,78 +1673,173 @@
       }
     },
     "/notifications": {
+      "get": {
+        "summary": "Obtener notificaciones del usuario",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "description": "Lista de notificaciones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationListResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/notifications/{id}/read": {
+      "put": {
+        "summary": "Marcar notificación como leída",
+        "tags": ["Notifications"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notificación marcada como leída",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Notification" }
+              }
+            }
+          },
+          "404": { "description": "Notificación no encontrada" }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/notifications/read-all": {
+      "put": {
+        "summary": "Marcar todas las notificaciones como leídas",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "description": "Todas las notificaciones marcadas como leídas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationListResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/notifications/{id}": {
+      "delete": {
+        "summary": "Eliminar notificación",
+        "tags": ["Notifications"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Notificación eliminada correctamente" },
+          "404": { "description": "Notificación no encontrada" }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/reports": {
+  "post": {
+    "summary": "Crear reporte",
+    "tags": ["Reports"],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ReportCreateRequest"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Reporte creado",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Report" }
+          }
+        }
+      }
+    },
+    "security": [{ "Bearer": [] }]
+  },
   "get": {
-    "summary": "Obtener notificaciones del usuario",
-    "tags": ["Notifications"],
+    "summary": "Ver reportes (admin)",
+    "tags": ["Reports"],
     "responses": {
       "200": {
-        "description": "Lista de notificaciones",
+        "description": "Lista de reportes",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/NotificationListResponse"
+              "$ref": "#/components/schemas/ReportListResponse"
             }
           }
         }
+      },
+      "403": {
+        "description": "No autorizado"
       }
     },
     "security": [{ "Bearer": [] }]
   }
 },
-"/notifications/{id}/read": {
+"/reports/{id}/status": {
   "put": {
-    "summary": "Marcar notificación como leída",
-    "tags": ["Notifications"],
+    "summary": "Actualizar estado de reporte",
+    "tags": ["Reports"],
     "parameters": [{
       "name": "id",
       "in": "path",
       "required": true,
       "schema": { "type": "integer" }
     }],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": ["pending", "reviewed", "banned"]
+              }
+            },
+            "required": ["status"]
+          }
+        }
+      }
+    },
     "responses": {
       "200": {
-        "description": "Notificación marcada como leída",
+        "description": "Estado actualizado",
         "content": {
           "application/json": {
-            "schema": { "$ref": "#/components/schemas/Notification" }
+            "schema": { "$ref": "#/components/schemas/Report" }
           }
         }
       },
-      "404": { "description": "Notificación no encontrada" }
-    },
-    "security": [{ "Bearer": [] }]
-  }
-},
-"/notifications/read-all": {
-  "put": {
-    "summary": "Marcar todas las notificaciones como leídas",
-    "tags": ["Notifications"],
-    "responses": {
-      "200": {
-        "description": "Todas las notificaciones marcadas como leídas",
-        "content": {
-          "application/json": {
-            "schema": { "$ref": "#/components/schemas/NotificationListResponse" }
-          }
-        }
-      }
-    },
-    "security": [{ "Bearer": [] }]
-  }
-},
-"/notifications/{id}": {
-  "delete": {
-    "summary": "Eliminar notificación",
-    "tags": ["Notifications"],
-    "parameters": [{
-      "name": "id",
-      "in": "path",
-      "required": true,
-      "schema": { "type": "integer" }
-    }],
-    "responses": {
-      "200": { "description": "Notificación eliminada correctamente" },
-      "404": { "description": "Notificación no encontrada" }
+      "403": { "description": "No autorizado" },
+      "404": { "description": "Reporte no encontrado" }
     },
     "security": [{ "Bearer": [] }]
   }
@@ -2419,27 +2514,64 @@
       }
     },
     "Notification": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "user_id": { "type": "integer" },
+        "type": {
+          "type": "string",
+          "enum": ["like", "comment", "match", "game_invitation"]
+        },
+        "reference_id": { "type": "integer" },
+        "message": { "type": "string" },
+        "seen": { "type": "boolean" },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "NotificationListResponse": {
+      "type": "object",
+      "properties": {
+        "success": { "type": "boolean" },
+        "data": {
+          "type": "array",
+          "items": { "$ref": "#/components/schemas/Notification" }
+        }
+      }
+    },
+    "Report": {
   "type": "object",
   "properties": {
     "id": { "type": "integer" },
-    "user_id": { "type": "integer" },
-    "type": {
+    "reporter_id": { "type": "integer" },
+    "reported_id": { "type": "integer" },
+    "reason": { "type": "string" },
+    "status": {
       "type": "string",
-      "enum": ["like", "comment", "match", "game_invitation"]
+      "enum": ["pending", "reviewed", "banned"]
     },
-    "reference_id": { "type": "integer" },
-    "message": { "type": "string" },
-    "seen": { "type": "boolean" },
-    "created_at": { "type": "string", "format": "date-time" }
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reporter_name": { "type": "string" },
+    "reported_name": { "type": "string" }
   }
 },
-"NotificationListResponse": {
+"ReportCreateRequest": {
+  "type": "object",
+  "required": ["reported_id", "reason"],
+  "properties": {
+    "reported_id": { "type": "integer" },
+    "reason": { "type": "string" }
+  }
+},
+"ReportListResponse": {
   "type": "object",
   "properties": {
     "success": { "type": "boolean" },
     "data": {
       "type": "array",
-      "items": { "$ref": "#/components/schemas/Notification" }
+      "items": { "$ref": "#/components/schemas/Report" }
     }
   }
 }

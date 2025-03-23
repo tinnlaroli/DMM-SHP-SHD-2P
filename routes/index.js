@@ -12,7 +12,7 @@ const socialRoutes = require('./socialRoutes');
 const matchRoutes = require('./matchRoutes');
 const gameInvitationRoutes = require('./gameInvitationRoutes');
 const notificationRoutes = require('./notificationRoutes');
-// const reportRoutes = require('./reportRoutes');
+const reportRoutes = require('./reportRoutes');
 // const searchRoutes = require('./searchRoutes');
 
 // Definir rutas
@@ -25,7 +25,7 @@ router.use("/social", socialRoutes);
 router.use('/matches', matchRoutes);
 router.use('/game-invitations', gameInvitationRoutes);
 router.use('/notifications', notificationRoutes);
-// router.use('/reports', reportRoutes);
+router.use('/reports', reportRoutes);
 // router.use('/search', searchRoutes);
 
 module.exports = router;
