@@ -13,7 +13,7 @@ const matchRoutes = require('./matchRoutes');
 const gameInvitationRoutes = require('./gameInvitationRoutes');
 const notificationRoutes = require('./notificationRoutes');
 const reportRoutes = require('./reportRoutes');
-// const searchRoutes = require('./searchRoutes');
+const searchRoutes = require('./searchRoutes');
 
 // Definir rutas
 router.use('/auth', authRoutes);
@@ -26,6 +26,6 @@ router.use('/matches', matchRoutes);
 router.use('/game-invitations', gameInvitationRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/reports', reportRoutes);
-// router.use('/search', searchRoutes);
+router.use('/search', searchRoutes);
 
 module.exports = router;

@@ -1756,95 +1756,229 @@
       }
     },
     "/reports": {
-  "post": {
-    "summary": "Crear reporte",
-    "tags": ["Reports"],
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "$ref": "#/components/schemas/ReportCreateRequest"
-          }
-        }
-      }
-    },
-    "responses": {
-      "201": {
-        "description": "Reporte creado",
-        "content": {
-          "application/json": {
-            "schema": { "$ref": "#/components/schemas/Report" }
-          }
-        }
-      }
-    },
-    "security": [{ "Bearer": [] }]
-  },
-  "get": {
-    "summary": "Ver reportes (admin)",
-    "tags": ["Reports"],
-    "responses": {
-      "200": {
-        "description": "Lista de reportes",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ReportListResponse"
+      "post": {
+        "summary": "Crear reporte",
+        "tags": ["Reports"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportCreateRequest"
+              }
             }
           }
-        }
-      },
-      "403": {
-        "description": "No autorizado"
-      }
-    },
-    "security": [{ "Bearer": [] }]
-  }
-},
-"/reports/{id}/status": {
-  "put": {
-    "summary": "Actualizar estado de reporte",
-    "tags": ["Reports"],
-    "parameters": [{
-      "name": "id",
-      "in": "path",
-      "required": true,
-      "schema": { "type": "integer" }
-    }],
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "properties": {
-              "status": {
-                "type": "string",
-                "enum": ["pending", "reviewed", "banned"]
+        },
+        "responses": {
+          "201": {
+            "description": "Reporte creado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Report" }
               }
-            },
-            "required": ["status"]
+            }
           }
-        }
+        },
+        "security": [{ "Bearer": [] }]
+      },
+      "get": {
+        "summary": "Ver reportes (admin)",
+        "tags": ["Reports"],
+        "responses": {
+          "200": {
+            "description": "Lista de reportes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportListResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No autorizado"
+          }
+        },
+        "security": [{ "Bearer": [] }]
       }
     },
-    "responses": {
-      "200": {
-        "description": "Estado actualizado",
-        "content": {
-          "application/json": {
-            "schema": { "$ref": "#/components/schemas/Report" }
+    "/reports/{id}/status": {
+      "put": {
+        "summary": "Actualizar estado de reporte",
+        "tags": ["Reports"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
           }
-        }
-      },
-      "403": { "description": "No autorizado" },
-      "404": { "description": "Reporte no encontrado" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": ["pending", "reviewed", "banned"]
+                  }
+                },
+                "required": ["status"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estado actualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Report" }
+              }
+            }
+          },
+          "403": { "description": "No autorizado" },
+          "404": { "description": "Reporte no encontrado" }
+        },
+        "security": [{ "Bearer": [] }]
+      }
     },
-    "security": [{ "Bearer": [] }]
-  }
-}
-
+    "/search/users": {
+      "get": {
+        "summary": "Buscar usuarios",
+        "tags": ["Search"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Texto a buscar en nombres de usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de usuarios encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSearchResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/search/posts": {
+      "get": {
+        "summary": "Buscar publicaciones",
+        "tags": ["Search"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Texto a buscar en contenido o títulos de juegos"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de publicaciones encontradas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Post" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/search/games": {
+      "get": {
+        "summary": "Buscar juegos",
+        "tags": ["Search"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Texto a buscar en juegos populares o preferencias"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de juegos encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/search/game-invitations": {
+      "get": {
+        "summary": "Buscar invitaciones de juego",
+        "tags": ["Search"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Texto a buscar en títulos o plataformas"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de invitaciones de juego encontradas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/GameInvitation" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    }
   },
   "definitions": {
     "RegisterRequest": {
@@ -2539,43 +2673,42 @@
       }
     },
     "Report": {
-  "type": "object",
-  "properties": {
-    "id": { "type": "integer" },
-    "reporter_id": { "type": "integer" },
-    "reported_id": { "type": "integer" },
-    "reason": { "type": "string" },
-    "status": {
-      "type": "string",
-      "enum": ["pending", "reviewed", "banned"]
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "reporter_id": { "type": "integer" },
+        "reported_id": { "type": "integer" },
+        "reason": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "reviewed", "banned"]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reporter_name": { "type": "string" },
+        "reported_name": { "type": "string" }
+      }
     },
-    "created_at": {
-      "type": "string",
-      "format": "date-time"
+    "ReportCreateRequest": {
+      "type": "object",
+      "required": ["reported_id", "reason"],
+      "properties": {
+        "reported_id": { "type": "integer" },
+        "reason": { "type": "string" }
+      }
     },
-    "reporter_name": { "type": "string" },
-    "reported_name": { "type": "string" }
-  }
-},
-"ReportCreateRequest": {
-  "type": "object",
-  "required": ["reported_id", "reason"],
-  "properties": {
-    "reported_id": { "type": "integer" },
-    "reason": { "type": "string" }
-  }
-},
-"ReportListResponse": {
-  "type": "object",
-  "properties": {
-    "success": { "type": "boolean" },
-    "data": {
-      "type": "array",
-      "items": { "$ref": "#/components/schemas/Report" }
+    "ReportListResponse": {
+      "type": "object",
+      "properties": {
+        "success": { "type": "boolean" },
+        "data": {
+          "type": "array",
+          "items": { "$ref": "#/components/schemas/Report" }
+        }
+      }
     }
-  }
-}
-
   },
   "securityDefinitions": {
     "Bearer": {
