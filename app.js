@@ -20,11 +20,13 @@ const isProd = process.env.NODE_ENV === 'production';
 const corsOptions = {
   origin: [
     "http://localhost:3000", // Para desarrollo local
-    "https://dmm-shp-shd-2p-production.up.railway.app" // Dominio de producción
+    "https://dmm-shp-shd-2p-production.up.railway.app", // Dominio de producción
+    "https://dmm-shp-shd-2p-production.up.railway.app/api-docs" // Swagger UI
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'], // Puedes agregar más cabeceras si es necesario
 };
+
 
 app.use(cors(corsOptions));
 
