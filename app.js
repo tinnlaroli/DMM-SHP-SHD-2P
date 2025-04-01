@@ -8,7 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
 require('dotenv').config();
 
-// Importar rutas
+// Importar rutas 
 const routes = require('./routes');
 
 // Inicializar la aplicación
