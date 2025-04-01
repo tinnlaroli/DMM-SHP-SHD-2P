@@ -28,7 +28,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Responder manualmente a las solicitudes OPTIONS (preflight CORS)
+// Responder manualmente a las solicitudes OPTIONS (preflight CORS) w
 app.options('*', cors(corsOptions));
 
 app.use(helmet({
