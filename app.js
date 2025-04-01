@@ -11,7 +11,7 @@ require('dotenv').config();
 // Importar rutas
 const routes = require('./routes');
 
-// Inicializar la aplicación
+// Inicializar la aplicación w
 const app = express();
 const PORT = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
