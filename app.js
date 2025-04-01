@@ -19,11 +19,12 @@ const isProd = process.env.NODE_ENV === 'production';
 // Middlewares
 const corsOptions = {
   origin: [
-    "http://localhost:3000", // Para pruebas locales
-    "https://dmm-shp-shd-2p-production.up.railway.app" // Dominio de producción
+    "http://localhost:3000",
+    "https://dmm-shp-shd-2p-production.up.railway.app"
   ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Agregar OPTIONS para pre-vuelo
-  allowedHeaders: ['Content-Type', 'Authorization'], // Asegúrate de permitir las cabeceras necesarias
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true 
 };
 
 app.use(cors(corsOptions));
