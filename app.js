@@ -16,34 +16,40 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
 
-// Middlewares
-const corsOptions = {
-  origin: [
+// Middleware CORS personalizado (resuelve cualquier preflight)
+app.use((req, res, next) => {
+  const allowedOrigins = [
     "http://localhost:3000",
     "https://dmm-shp-shd-2p-production.up.railway.app"
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true 
-};
+  ];
+  const origin = req.headers.origin;
 
-app.use(cors(corsOptions));
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
 
-// Responder manualmente a las solicitudes OPTIONS (preflight CORS) we
-app.options('*', cors(corsOptions));
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
 
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
+// Helmet (debe ir después de CORS para no bloquear cabeceras)
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       "img-src": ["'self'", "data:"],
       "script-src": ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
-      "connect-src": ["'self'", "http://localhost:3000", "https://dmm-shp-shd-2p-production.up.railway.app"], // Permitir conexiones a la API de producción
+      "connect-src": ["'self'", "http://localhost:3000", "https://dmm-shp-shd-2p-production.up.railway.app"],
     }
   }
 }));
-
-
 
 app.use(compression());
 app.use(morgan(isProd ? 'combined' : 'dev'));
@@ -61,7 +67,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
   }
 }));
 
-// Rutas
+// Rutas principales
 app.use('/api', routes);
 
 // Ruta no encontrada
