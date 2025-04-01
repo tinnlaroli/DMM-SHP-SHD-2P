@@ -11,31 +11,35 @@ require('dotenv').config();
 // Importar rutas
 const routes = require('./routes');
 
-// Inicializar la aplicación w
+// Inicializar la aplicación
 const app = express();
 const PORT = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
 
-// Middleware CORS con configuración flexible
-const corsOptions = {
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      "http://localhost:3000",
-      "https://dmm-shp-shd-2p-production.up.railway.app"
-    ];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS bloqueado"));
-    }
-  },
-  methods: "GET, POST, PUT, DELETE, OPTIONS",
-  allowedHeaders: "Content-Type, Authorization",
-  credentials: true,
-};
-app.use(cors(corsOptions));
+// Middleware CORS personalizado (resuelve cualquier preflight) si
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "https://dmm-shp-shd-2p-production.up.railway.app"
+  ];
+  const origin = req.headers.origin;
 
-// Helmet (después de CORS para evitar bloqueos de cabeceras)
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
+// Helmet (debe ir después de CORS para no bloquear cabeceras)
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -66,12 +70,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
 // Rutas principales
 app.use('/api', routes);
 
-// Ruta de prueba de autenticación (para depuración)
-app.post('/api/auth/login', (req, res) => {
-  console.log('Solicitud recibida en /api/auth/login:', req.body);
-  res.json({ success: true, message: "Login exitoso" });
-});
-
 // Ruta no encontrada
 app.use((req, res, next) => {
   const error = new Error('Ruta no encontrada');
@@ -85,7 +83,10 @@ app.use((err, req, res, next) => {
   const message = err.message || 'Error del servidor';
   res.status(status).json({
     success: false,
-    error: { message, status }
+    error: {
+      message,
+      status
+    }
   });
 });
 
