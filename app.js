@@ -16,7 +16,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
 
-// Middleware CORS personalizado (resuelve cualquier preflight)
+// Middleware CORS personalizado (resuelve cualquier preflight) si
 app.use((req, res, next) => {
   const allowedOrigins = [
     "http://localhost:3000",
