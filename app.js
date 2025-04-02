@@ -16,12 +16,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
 
-// Middleware CORS personalizado (resuelve cualquier preflight) si
+// Middleware CORS personalizado (resuelve cualquier preflight)
+const allowedOrigins = [
+  "http://localhost:8100",  // Asegúrate de que sea el puerto correcto de tu app Ionic
+  "https://dmm-shp-shd-2p-production.up.railway.app"  // Permite el origen de producción
+];
+
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    "http://localhost:3000",
-    "https://dmm-shp-shd-2p-production.up.railway.app"
-  ];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
