@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Formulario de Login -->
+  <ion-card *ngIf="!isRegistering">
+    <ion-card-header>
+      <ion-card-title>Iniciar sesión</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="email" type="email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input [(ngModel)]="password" type="password" required></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" (click)="login()">Login</ion-button>
+
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button expand="full" fill="clear" (click)="toggleRegister()">¿No tienes cuenta? Regístrate aquí</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-button expand="block" color="dark" (click)="loginWithGithub()">
+        <ion-icon name="logo-github" slot="start"></ion-icon>
+        Iniciar con GitHub
+      </ion-button>
+    
+      <!-- Botón para login con Google -->
+      <ion-button expand="block" color="danger" (click)="googleSignIn()">
+        <ion-icon name="logo-google" slot="start"></ion-icon>
+        Iniciar con Google
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Formulario de Registro -->
+  <ion-card *ngIf="isRegistering">
+    <ion-card-header>
+      <ion-card-title>Registrarse</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="name" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="email" type="email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input [(ngModel)]="password" type="password" required></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" (click)="register()">Registrarse</ion-button>
+
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button expand="full" fill="clear" (click)="toggleRegister()">¿Ya tienes cuenta? Inicia sesión</ion-button>
+        </ion-col>
+      </ion-row>
+
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Aceptar/Rechazar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let profile of profiles">
+    <ion-card-header>
+      <ion-card-title>{{ profile.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button (click)="acceptProfile(profile.id)" color="success">Aceptar</ion-button>
+      <ion-button (click)="rejectProfile(profile.id)" color="danger">Rechazar</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

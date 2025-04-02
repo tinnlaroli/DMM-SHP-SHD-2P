@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Game Invitation</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-textarea 
+      [(ngModel)]="content" 
+      placeholder="Describe your game session..."
+      rows="4"
+      autoGrow="true"
+      maxlength="500">
+    </ion-textarea>
+  </ion-item>
+  <ion-note>Characters: {{content.length || 0}}/500</ion-note>
+
+  <ion-item>
+    <ion-input
+      [(ngModel)]="gameTitle"
+      placeholder="Game title (e.g. Fortnite)"
+      required>
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-select 
+      [(ngModel)]="gamePlatform" 
+      label="Platform" 
+      interface="popover">
+      <ion-select-option *ngFor="let platform of platforms" [value]="platform">
+        {{platform}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-datetime
+      [(ngModel)]="gameDate"
+      displayFormat="MMM DD, YYYY HH:mm"
+      minuteValues="0,15,30,45"
+      label="Game Date & Time"
+      required>
+    </ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-range
+      [(ngModel)]="maxParticipants"
+      min="1"
+      max="10"
+      snaps="true"
+      ticks="true"
+      label="Max Players">
+      <ion-label slot="start">1</ion-label>
+      <ion-label slot="end">10</ion-label>
+    </ion-range>
+    <ion-label slot="end">{{maxParticipants}}</ion-label>
+  </ion-item>
+
+  <ion-button 
+    expand="block" 
+    (click)="publish()"
+    [disabled]="!content || !gameTitle || !gamePlatform || !gameDate">
+    Publish Invitation
+  </ion-button>
+</ion-content>
