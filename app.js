@@ -18,7 +18,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 // Middleware CORS personalizado (resuelve cualquier preflight)
 const allowedOrigins = [
-  "http://localhost:8100",  // Asegúrate de que sea el puerto correcto de tu app Ionic
+  "http://localhost:8100",  // Asegúrate de que sea el pu`erto correcto de tu app Ionic
   "https://dmm-shp-shd-2p-production.up.railway.app"  // Permite el origen de producción
 ];
 
