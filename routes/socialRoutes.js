@@ -5,7 +5,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const validation = require("../middlewares/validation");
 
 // Aplicamos el middleware de autenticación a todas las rutas
-router.use(authMiddleware);
+//router.use(authMiddleware);
 
 // Post interactions
 router.post("/posts/:id/like", socialController.likePost);

@@ -5,12 +5,12 @@ const authMiddleware = require('../middlewares/authMiddleware');
 const { validateUserUpdate, validateUserSettings } = require('../middlewares/validation');
 
 // Get user profile by ID
-router.get('/:id', authMiddleware, userController.getUserProfile);
+router.get('/:id', userController.getUserProfile);
 
 // Update current user profile
-router.put('/me', authMiddleware, validateUserUpdate, userController.updateProfile);
+router.put('/me', validateUserUpdate, userController.updateProfile);
 
 // Update user settings
-router.put('/settings', authMiddleware, validateUserSettings, userController.updateSettings);
+router.put('/settings', validateUserSettings, userController.updateSettings);
 
 module.exports = router;

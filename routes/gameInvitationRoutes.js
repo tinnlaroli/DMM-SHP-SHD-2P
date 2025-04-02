@@ -4,27 +4,27 @@ const GameInvitationController = require('../controllers/gameInvitationControlle
 const authmiddleware = require('../middlewares/authMiddleware');
 
 // Obtener todas las invitaciones activas
-router.get('/', authmiddleware, GameInvitationController.getAll);
+router.get('/', GameInvitationController.getAll);
 
 // Crear nueva invitación de juego
-router.post('/', authmiddleware, GameInvitationController.create);
+router.post('/', GameInvitationController.create);
 
 // Ver detalles de una invitación
-router.get('/:id', authmiddleware, GameInvitationController.getById);
+router.get('/:id', GameInvitationController.getById);
 
 // Actualizar una invitación existente
-router.put('/:id', authmiddleware, GameInvitationController.update);
+router.put('/:id', GameInvitationController.update);
 
 // Cancelar una invitación
-router.delete('/:id', authmiddleware, GameInvitationController.remove);
+router.delete('/:id', GameInvitationController.remove);
 
 // Unirse a una invitación
-router.post('/:id/join', authmiddleware, GameInvitationController.join);
+router.post('/:id/join', GameInvitationController.join);
 
 // Aceptar o rechazar participación
-router.put('/:id/status', authmiddleware, GameInvitationController.updateStatus);
+router.put('/:id/status', GameInvitationController.updateStatus);
 
 // Ver próximas citas del usuario
-router.get('/upcoming', authmiddleware, GameInvitationController.getUpcoming);
+router.get('/upcoming', GameInvitationController.getUpcoming);
 
 module.exports = router;

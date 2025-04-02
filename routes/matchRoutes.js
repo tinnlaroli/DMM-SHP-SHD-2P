@@ -3,10 +3,10 @@ const router = express.Router();
 const MatchController = require('../controllers/matchController');
 const auth = require('../middlewares/authMiddleware');
 
-router.get('/', auth, MatchController.getUserMatches);
-router.get('/recommendations', auth, MatchController.getRecommendations);
-router.get('/:id', auth, MatchController.getMatchById);
-router.post('/calculate/:userId', auth, MatchController.calculateMatch);
-router.delete('/:id', auth, MatchController.deleteMatch);
+router.get('/',  MatchController.getUserMatches);
+router.get('/recommendations',  MatchController.getRecommendations);
+router.get('/:id',  MatchController.getMatchById);
+router.post('/calculate/:userId',  MatchController.calculateMatch);
+router.delete('/:id',  MatchController.deleteMatch);
 
 module.exports = router;

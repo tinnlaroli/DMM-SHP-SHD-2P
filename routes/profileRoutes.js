@@ -4,20 +4,24 @@ const profileController = require('../controllers/profileController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const { validateUpdateProfile, validateAddGame, validateAddPlayTime } = require('../middlewares/validation');
 
-// Get complete profile
-router.get('/:id/profile', authMiddleware, profileController.getProfile);
+// Obtener perfil completo
+router.get('/:id/profile', profileController.getProfile);
 
-// Update profile
-router.put('/:id/profile', authMiddleware, validateUpdateProfile, profileController.updateProfile);
+// Actualizar perfil
+router.put('/:id/profile', validateUpdateProfile, profileController.updateProfile);
 
-// Game preferences
-router.get('/:id/games', authMiddleware, profileController.getGames);
-router.post('/games', authMiddleware, validateAddGame, profileController.addGame);
-router.delete('/games/:gameId', authMiddleware, profileController.removeGame);
+// Obtener preferencias de juegos
+router.get('/:id/games', profileController.getGames);
+// Agregar un juego a las preferencias del usuario
+router.post('/games', validateAddGame, profileController.addGame);
+// Eliminar un juego de las preferencias del usuario
+router.delete('/games/:gameId', profileController.removeGame);
 
-// Play time preferences
-router.get('/:id/play-times', authMiddleware, profileController.getPlayTimes);
-router.post('/play-times', authMiddleware, validateAddPlayTime, profileController.addPlayTime);
-router.delete('/play-times/:timeId', authMiddleware, profileController.removePlayTime);
+// Obtener tiempos de juego del usuario
+router.get('/:id/play-times', profileController.getPlayTimes);
+// Agregar un tiempo de juego a las preferencias del usuario
+router.post('/play-times', validateAddPlayTime, profileController.addPlayTime);
+// Eliminar un tiempo de juego de las preferencias del usuario
+router.delete('/play-times/:timeId', profileController.removePlayTime);
 
 module.exports = router;

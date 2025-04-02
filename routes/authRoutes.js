@@ -58,12 +58,12 @@ if (process.env.FACEBOOK_APP_ID && process.env.FACEBOOK_APP_SECRET) {
 }
 
 // Get current user info
-router.get('/me', authMiddleware, authController.getCurrentUser);
+router.get('/me', authController.getCurrentUser);
 
 // Update current user info
-router.put('/me', authMiddleware, authController.updateCurrentUser);
+router.put('/me', authController.updateCurrentUser);
 
 // Logout user
-router.post('/logout', authMiddleware, authController.logout);
+router.post('/logout', authController.logout);
 
 module.exports = router;

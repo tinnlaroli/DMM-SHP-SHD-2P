@@ -17,14 +17,14 @@ router.get("/:id", validateIdParam, postController.getPostById);
 // Rutas protegidas - requieren autenticación
 router.post(
   "/",
-  authMiddleware,
+  
   validateCreatePost,
   postController.createPost
 );
 
 router.put(
   "/:id",
-  authMiddleware,
+  
   validateIdParam,
   validateUpdatePost,
   postController.updatePost
@@ -32,7 +32,7 @@ router.put(
 
 router.delete(
   "/:id",
-  authMiddleware,
+  
   validateIdParam,
   postController.deletePost
 );
@@ -40,7 +40,7 @@ router.delete(
 // Rutas para manejo de contenido multimedia
 router.post(
   "/:id/media",
-  authMiddleware,
+  
   validateIdParam,
   validateMedia,
   postController.addMedia
@@ -48,7 +48,7 @@ router.post(
 
 router.delete(
   "/:id/media/:mediaId",
-  authMiddleware,
+  
   validateIdParam,
   validateMediaIdParam,
   postController.deleteMedia
