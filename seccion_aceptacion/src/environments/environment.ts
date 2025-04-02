@@ -2,9 +2,13 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// src/environments/environment.ts (Desarrollo)
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: '/api', // Usa el proxy
+  //apiRealUrl: 'https://dmm-shp-shd-2p-production.up.railway.app/api' // Opcional para referencia
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

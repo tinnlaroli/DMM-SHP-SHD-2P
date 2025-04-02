@@ -1,0 +1,145 @@
+/* login.page.scss - Versión Mejorada */
+
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--ion-color-light);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  
+    /* Logo Styles */
+    .logo {
+      width: 120px;
+      height: auto;
+      margin: 0 auto 2.5rem;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+  
+    /* Ion-Item Customization */
+    ion-item {
+      --background: var(--ion-color-light);
+      --border-color: var(--ion-color-medium-shade);
+      --border-radius: 8px;
+      --padding-start: 12px;
+      --inner-padding-end: 12px;
+      --highlight-color-focused: var(--ion-color-primary);
+      --highlight-color-valid: var(--ion-color-success);
+      --highlight-color-invalid: var(--ion-color-danger);
+      margin-bottom: 1.25rem;
+      transition: all 0.3s ease;
+  
+      &:focus-within {
+        --border-color: var(--ion-color-primary);
+        box-shadow: 0 0 0 2px rgba(var(--ion-color-primary-rgb), 0.1);
+      }
+  
+      ion-icon[slot="start"] {
+        color: var(--ion-color-medium);
+        margin-right: 12px;
+        font-size: 1.2rem;
+      }
+  
+      /* Password Toggle Button */
+      ion-button[slot="end"] {
+        --padding-start: 8px;
+        --padding-end: 8px;
+        
+        ion-icon {
+          font-size: 1.4rem;
+        }
+      }
+    }
+  
+    /* Validation Error Messages */
+    .validation-error {
+      color: var(--ion-color-danger);
+      font-size: 0.75rem;
+      margin: -0.75rem 0 1rem 1rem;
+      line-height: 1.4;
+      
+      small {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+    }
+  
+    /* Submit Button */
+    ion-button[type="submit"] {
+      --border-radius: 8px;
+      --box-shadow: none;
+      height: 48px;
+      margin-top: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: transform 0.2s ease, background 0.3s ease;
+  
+      &:active:not([disabled]) {
+        transform: scale(0.98);
+      }
+  
+      &:hover:not([disabled]) {
+        --background: var(--ion-color-primary-shade);
+      }
+  
+      ion-spinner {
+        margin-right: 10px;
+      }
+    }
+  
+    /* Links Section */
+    .links-section {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+  
+      .link {
+        color: var(--ion-color-primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+        display: inline-block;
+        margin: 0 0.5rem;
+  
+        &:hover {
+          color: var(--ion-color-primary-shade);
+          text-decoration: underline;
+        }
+      }
+    }
+  
+    /* Dark Mode Adaptations */
+    @media (prefers-color-scheme: dark) {
+      background: var(--ion-color-step-150);
+      
+      ion-item {
+        --background: var(--ion-color-step-150);
+        --border-color: var(--ion-color-step-300);
+      }
+    }
+  
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 576px) {
+    .form-container {
+      margin: 1rem;
+      padding: 1.5rem;
+      border-radius: 8px;
+      
+      .logo {
+        width: 100px;
+        margin-bottom: 2rem;
+      }
+      
+      ion-button[type="submit"] {
+        height: 44px;
+      }
+    }
+  }

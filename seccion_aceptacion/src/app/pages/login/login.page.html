@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Iniciar Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <ion-img src="../../assets/icon/logo.png" alt="Logo de la aplicación" class="logo"></ion-img>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container">
+      <!-- Campo Email -->
+      <ion-item lines="full" class="form-item">
+        <ion-icon name="mail-outline" slot="start" color="medium"></ion-icon>
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input 
+          type="email" 
+          formControlName="email"
+          autocomplete="email"
+          aria-label="Correo electrónico"
+          required>
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="emailControl?.invalid && (emailControl?.dirty || emailControl?.touched)" 
+          class="validation-error">
+        <small *ngIf="emailControl?.errors?.['required']">El correo es requerido</small>
+        <small *ngIf="emailControl?.errors?.['email'] || emailControl?.errors?.['pattern']">
+          Ingresa un correo válido
+        </small>
+      </div>
+
+      <!-- Campo Contraseña -->
+      <ion-item lines="full" class="form-item">
+        <ion-icon name="lock-closed-outline" slot="start" color="medium"></ion-icon>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input 
+          [type]="showPassword ? 'text' : 'password'" 
+          formControlName="password"
+          autocomplete="current-password"
+          aria-label="Contraseña"
+          required>
+        </ion-input>
+        <ion-button 
+          fill="clear" 
+          slot="end" 
+          (click)="togglePasswordVisibility()"
+          aria-label="Mostrar/ocultar contraseña">
+          <ion-icon 
+            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+            color="medium">
+          </ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <div *ngIf="passwordControl?.invalid && (passwordControl?.dirty || passwordControl?.touched)" 
+          class="validation-error">
+        <small *ngIf="passwordControl?.errors?.['required']">La contraseña es requerida</small>
+        <small *ngIf="passwordControl?.errors?.['minlength']">
+          Mínimo {{passwordControl?.errors?.['minlength']?.requiredLength}} caracteres
+        </small>
+        <small *ngIf="passwordControl?.errors?.['maxlength']">
+          Máximo {{passwordControl?.errors?.['maxlength']?.requiredLength}} caracteres
+        </small>
+      </div>
+
+      <!-- Botón de Submit -->
+      <ion-button 
+        expand="block" 
+        type="submit" 
+        class="submit-button"
+        [disabled]="loginForm.invalid || isLoading"
+        shape="round">
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <span *ngIf="!isLoading">Iniciar Sesión</span>
+      </ion-button>
+
+    </form>
+  </div>
+</ion-content>

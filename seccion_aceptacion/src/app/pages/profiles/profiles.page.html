@@ -1,42 +1,76 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Perfiles</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Loading state -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando perfiles...</p>
+  </div>
 
-  <div *ngIf="profiles.length > 0; else noProfiles" class="profile-list">
+  <!-- Error state -->
+  <div *ngIf="error && !isLoading" class="error-container ion-text-center">
+    <ion-icon name="warning-outline" color="danger"></ion-icon>
+    <p>{{ error }}</p>
+    <ion-button fill="outline" (click)="loadProfiles()">Reintentar</ion-button>
+  </div>
 
+  <!-- Profiles list -->
+  <div *ngIf="!isLoading && profiles.length > 0; else noProfiles" class="profile-list">
     <ion-card *ngFor="let profile of profiles" class="profile-card">
-      <ion-img [src]="profile.image" alt="Foto de perfil"></ion-img>
+      <div class="image-container">
+        <ion-img [src]="profile.image || 'assets/default-profile.png'" 
+                class="profile-image" 
+                alt="Foto de perfil"
+                (ionError)="profile.image = 'assets/default-profile.png'">
+        </ion-img>
+        <div class="compatibility-badge">
+          {{ profile.score }}%
+        </div>
+      </div>
 
       <ion-card-header>
-        <ion-card-title>{{ profile.name }}</ion-card-title>
-        <ion-card-subtitle>{{ profile.age }} años</ion-card-subtitle>
+        <ion-card-title>{{ profile.name }}, {{ profile.age }}</ion-card-title>
+        <ion-card-subtitle>{{ profile.location || 'Ubicación no especificada' }}</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
-        <p>{{ profile.bio }}</p>
+        <p class="bio">{{ profile.bio || 'Este usuario no ha escrito una biografía.' }}</p>
+        
+        <div class="tags-container" *ngIf="profile.tags?.length">
+          <ion-chip *ngFor="let tag of profile.tags" outline>
+            <ion-label>{{ tag }}</ion-label>
+          </ion-chip>
+        </div>
       </ion-card-content>
 
-      <ion-button expand="full" color="success" (click)="acceptProfile(profile)">
-        ✅ Aceptar
-      </ion-button>
-
-      <ion-button expand="full" color="danger" (click)="rejectProfile(profile)">
-        ❌ Rechazar
-      </ion-button>
-
+      <ion-row class="action-buttons">
+        <ion-col size="6">
+          <ion-button expand="block" color="danger" (click)="rejectProfile(profile)">
+            <ion-icon slot="start" name="close"></ion-icon>
+            Rechazar
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button expand="block" color="success" (click)="acceptProfile(profile)">
+            <ion-icon slot="start" name="heart"></ion-icon>
+            Aceptar
+          </ion-button>
+        </ion-col>
+      </ion-row>
     </ion-card>
-
   </div>
 
-  <!-- Mensaje si no hay más perfiles -->
+  <!-- No profiles template -->
   <ng-template #noProfiles>
-    <div class="ion-text-center">
-      <p>No hay más perfiles disponibles.</p>
+    <div class="empty-state ion-text-center" *ngIf="!isLoading && !error">
+      <ion-icon name="people-outline" size="large"></ion-icon>
+      <h2>No hay más perfiles</h2>
+      <p>Vuelve más tarde o ajusta tus preferencias</p>
+      <ion-button fill="outline" (click)="loadProfiles()">Recargar</ion-button>
     </div>
   </ng-template>
-
 </ion-content>
